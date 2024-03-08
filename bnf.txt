@@ -1,0 +1,57 @@
+<program> ::= (<definition> <w>)*
+
+<definition> ::= <structDefinition> | <enumerableDefinition> | <variableDeclaration> | <function> | <arrayDeclaration>
+<structDefinition> ::= "struct" <s> <identifier> <w> "{" <w> (<type> <s> <identifier> <w> ";" <w>)+ "}"
+<enumerableDefinition> ::= "enum" <s> <identifier> <w> "{" <w> <identifier> <w> ("=" <w> <number>)? <w> ("," <w> <identifier> <w> ("=" <w> <number> <w>)? )* <w> ","? <w> "}"
+<function> ::= <type> <s> <identifier> <w> "(" <w> (<type> <s> <identifier> <w> ("," <w> <type> <s> <identifier> <w> )*)? <w> ")" <w> "{" <w> (<statement> <w>)* "}"
+<variableDeclaration> ::= <type> <s> (<identifier> | <assignment>) <w> ("," <w> (<identifier> | <assignment>) <w> )* <w> ";"
+<arrayDeclaration> ::= <type> <w> "[" <w> "]" <s> (<identifier> | <arrayAssignment>) <w> ("," <w> (<identifier> | <arrayAssignment>) <w>)* <w> ";"
+<arrayAssignment> ::= <identifier> <w> "=" <w> <type> <w> "[" <w> <expression> <w> "]"
+
+
+<statement> ::= <switchStatement> | <variableDeclaration> | <arrayDeclaration> | <expressionStatement> | <whileStatement> | <block> | <forStatement> | <doWhileStatement> | <returnStatement> | <breakStatement> | <continueStatement>
+
+<block> ::= "{" <w> (<statement> <w>)* "}"
+<expressionStatement> ::= <expression> <w> ";"
+<whileStatement> ::= "while" <w> "(" <w> <expression> <w> ")" <w> <statement>
+<forStatement> ::= "for" <w> "(" <w> (<variableDeclaration> | ";") <w> <expression>? <w> ";" <w> <expression>? <w> ")" <w> <statement>
+<doWhileStatement> ::= "do" <w> <statement> <w> "while" <w> "(" <w> <expression> <w> ")"
+<switchStatement> ::= "switch" <w> "(" <w> <expression> <w> ")" <w> "{" <w> <case> <w> ((<case> | <statement>) <w> )*  ("default" <w> ":" <w> (<statement> <w> )*)? <w> "}"
+<case> ::= "case" <s> <expression> <w> ":"
+<returnStatement> ::= "return" <s> <expression> <w> ";"
+<breakStatement> ::= "break" <w> ";"
+<continueStatement> ::= "continue" <w> ";"
+
+
+<expression> ::= <identifier> | <number> | <decimal> | <call> | <ternary> | <grouping> | <binary> | <unary> | <assignment> | <arrayAccess> | <fieldAccess> | <typeCast> | <boolVal> | <arrayAssignment>
+
+<ternary> ::= <expression> <w> "?" <w> <expression> <w> ":" <w> <expression>
+<binary> ::= <expression> <w> (<binaryMath> | <binaryBitwise> | <binaryLogic>) <w> <expression>
+<unary> ::= <unaryOp> <w> <expression>
+<grouping> ::= "(" <w> <expression> <w> ")"
+<arrayAccess> ::= <identifier> <w> "[" <w> <expression> <w> "]"
+<call> ::= <identifier> "(" <w> (<expression> <w> ("," <w> <expression> <w>)* )? ")"
+<typeCast> ::= "(" <w> <type> <w> ")" <w> <expression>
+<assignment> ::= <identifier> <w> (<binaryMath> | <binaryBitwise>)? <w> "=" <w> <expression>
+<fieldAccess> ::= <identifier> "." <identifier>
+
+
+
+<number> ::= [0-9]+
+<decimal> ::= <number> "." <number>
+
+<alpha> ::= [a-z] | [A-Z] | "_"
+<word> ::= (<number> | <alpha>)+
+<identifier> ::= <alpha> <word>?
+
+
+<unaryOp> ::= "-" | "!"
+<binaryMath> ::= "-" | "+" | "*" | "/" 
+<binaryBitwise> ::= "&" | "|" | "^" | "<<" | ">>"
+<binaryLogic> ::= "&&"  | "||" | "==" | "!=" | ">=" | "<="
+<type> ::= "int" | "float" | "short" | "char" | "long" | "decimal" | <identifier>
+<boolVal> ::= "true" | "false"
+
+<whiteSpace> ::= " " | "\t" | "\n"
+<w> ::= <whiteSpace>*
+<s> ::= <whiteSpace>+
