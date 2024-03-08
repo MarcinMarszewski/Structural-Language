@@ -1,7 +1,7 @@
 <program> ::= (<definition> <w>)*
 
 <definition> ::= <structDefinition> | <enumerableDefinition> | <variableDeclaration> | <function> | <arrayDeclaration>
-<structDefinition> ::= "struct" <s> <identifier> <w> "{" <w> (<type> <s> <identifier> <w> ";" <w>)+ "}"
+<structDefinition> ::= "struct" <s> <identifier> <w> "{" <w> (<type> (<w> "[" <w> "]")? <s> <identifier> <w> ";" <w>)+ "}"
 <enumerableDefinition> ::= "enum" <s> <identifier> <w> "{" <w> <identifier> <w> ("=" <w> <number>)? <w> ("," <w> <identifier> <w> ("=" <w> <number> <w>)? )* <w> ","? <w> "}"
 <function> ::= <type> <s> <identifier> <w> "(" <w> (<type> <s> <identifier> <w> ("," <w> <type> <s> <identifier> <w> )*)? <w> ")" <w> "{" <w> (<statement> <w>)* "}"
 <variableDeclaration> ::= <type> <s> (<identifier> | <assignment>) <w> ("," <w> (<identifier> | <assignment>) <w> )* <w> ";"
