@@ -1,0 +1,58 @@
+grammar LANGUAGE;
+
+program : (definition )* ;
+
+definition : structDefinition | enumerableDefinition | variableDeclaration | function | arrayDeclaration ;
+structDefinition : 'struct' identifier  '{'  (type ( '[' ']')? identifier  ';' )+ '}';
+enumerableDefinition : 'enum' identifier  '{'  identifier  ('='  number)?  (','  identifier  ('='  number )? )*  ','?  '}';
+function : type identifier  '('  (type identifier  (','  type identifier  )*)?  ')'  '{'  (statement )* '}';
+variableDeclaration : type (identifier | assignment)  (','  (identifier | assignment)  )*  ';';
+arrayDeclaration : type  '['  ']' (identifier | arrayAssignment)  (','  (identifier | arrayAssignment) )*  ';';
+arrayAssignment : identifier  '='  type  '['  expression  ']';
+
+
+statement : switchStatement | variableDeclaration | arrayDeclaration | expressionStatement | whileStatement | block | forStatement | doWhileStatement | returnStatement | breakStatement | continueStatement;
+
+block : '{'  (statement )* '}';
+expressionStatement : expression  ';';
+whileStatement : 'while'  '('  expression  ')'  statement;
+forStatement : 'for'  '('  (variableDeclaration | ';')  expression?  ';'  expression?  ')'  statement;
+doWhileStatement : 'do'  statement  'while'  '('  expression  ')' ';' ;
+switchStatement : 'switch'  '('  expression  ')'  '{'  case  ((case | statement)  )*  ('default'  ':'  (statement  )*)?  '}';
+case : 'case' expression  ':';
+returnStatement : 'return' expression  ';';
+breakStatement : 'break'  ';';
+continueStatement : 'continue'  ';';
+
+
+expression : identifier | number | decimal | call | ternary | grouping | binary | unary | assignment | arrayAccess | fieldAccess | typeCast | boolVal | arrayAssignment;
+
+ternary : expression  '?'  expression  ':'  expression;
+binary : expression  (binaryMath | binaryBitwise | binaryLogic)  expression;
+unary : unaryOp  expression;
+grouping : '('  expression  ')';
+arrayAccess : identifier  '['  expression  ']';
+call : identifier '('  (expression  (','  expression )* )? ')';
+typeCast : '('  type  ')'  expression;
+assignment : identifier  (binaryMath | binaryBitwise)?  '='  expression;
+fieldAccess : identifier '.' identifier;
+
+lexer grammar grammar;
+
+digit : '0'..'9';
+number : digit+;
+decimal : number '.' number;
+
+alpha : 'a'..'z' | 'A'..'Z' | '_';
+word : (number | alpha)+;
+identifier : alpha word?;
+
+
+unaryOp : '-' | '!';
+binaryMath : '-' | '+' | '*' | '/'; 
+binaryBitwise : '&' | '|' | '^' | '>>' | '<<';
+binaryLogic : '&&'  | '||' | '==' | '!=' | '<=' | '>=';
+type : 'int' | 'float' | 'short' | 'char' | 'long' | 'decimal' | identifier;
+boolVal : 'true' | 'false';
+
+WS : [ \t\r\n]+ -> skip;
