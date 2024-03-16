@@ -1,0 +1,17 @@
+C:\Users\marci\Desktop\Structural Language\AntlrCSharp\bin\Debug\net7.0\AntlrCSharp.exe
+C:\Users\marci\Desktop\Structural Language\AntlrCSharp\bin\Debug\net7.0\AntlrCSharp.deps.json
+C:\Users\marci\Desktop\Structural Language\AntlrCSharp\bin\Debug\net7.0\AntlrCSharp.runtimeconfig.json
+C:\Users\marci\Desktop\Structural Language\AntlrCSharp\bin\Debug\net7.0\AntlrCSharp.dll
+C:\Users\marci\Desktop\Structural Language\AntlrCSharp\bin\Debug\net7.0\AntlrCSharp.pdb
+C:\Users\marci\Desktop\Structural Language\AntlrCSharp\bin\Debug\net7.0\Antlr4.Runtime.Standard.dll
+C:\Users\marci\Desktop\Structural Language\AntlrCSharp\obj\Debug\net7.0\AntlrCSharp.csproj.AssemblyReference.cache
+C:\Users\marci\Desktop\Structural Language\AntlrCSharp\obj\Debug\net7.0\AntlrCSharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\marci\Desktop\Structural Language\AntlrCSharp\obj\Debug\net7.0\AntlrCSharp.AssemblyInfoInputs.cache
+C:\Users\marci\Desktop\Structural Language\AntlrCSharp\obj\Debug\net7.0\AntlrCSharp.AssemblyInfo.cs
+C:\Users\marci\Desktop\Structural Language\AntlrCSharp\obj\Debug\net7.0\AntlrCSharp.csproj.CoreCompileInputs.cache
+C:\Users\marci\Desktop\Structural Language\AntlrCSharp\obj\Debug\net7.0\AntlrCSharp.csproj.CopyComplete
+C:\Users\marci\Desktop\Structural Language\AntlrCSharp\obj\Debug\net7.0\AntlrCSharp.dll
+C:\Users\marci\Desktop\Structural Language\AntlrCSharp\obj\Debug\net7.0\refint\AntlrCSharp.dll
+C:\Users\marci\Desktop\Structural Language\AntlrCSharp\obj\Debug\net7.0\AntlrCSharp.pdb
+C:\Users\marci\Desktop\Structural Language\AntlrCSharp\obj\Debug\net7.0\AntlrCSharp.genruntimeconfig.cache
+C:\Users\marci\Desktop\Structural Language\AntlrCSharp\obj\Debug\net7.0\ref\AntlrCSharp.dll

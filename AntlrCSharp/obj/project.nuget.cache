@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "CX1svrUE+oypSYu0BOFXH9CaTsrVo+5HGmeW3jl7qzS1xymxv9PROZ7WPMAPk5XTz3FUH156CbDep5HW4LImBg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\marci\\Desktop\\Structural Language\\AntlrCSharp\\AntlrCSharp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\marci\\.nuget\\packages\\antlr4.runtime.standard\\4.13.1\\antlr4.runtime.standard.4.13.1.nupkg.sha512"
+  ],
+  "logs": []
+}
