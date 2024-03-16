@@ -2,6 +2,10 @@ grammar ParserRules;
 
 import LexerRules;
 
+options {
+    entryPoint = program;
+}
+
 program : (definition )+ ;
 
 
