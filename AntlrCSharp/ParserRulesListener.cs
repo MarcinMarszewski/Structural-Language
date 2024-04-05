@@ -31,196 +31,6 @@ using IToken = Antlr4.Runtime.IToken;
 [System.CLSCompliant(false)]
 public interface IParserRulesListener : IParseTreeListener {
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.program"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterProgram([NotNull] ParserRulesParser.ProgramContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.program"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitProgram([NotNull] ParserRulesParser.ProgramContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.definition"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterDefinition([NotNull] ParserRulesParser.DefinitionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.definition"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitDefinition([NotNull] ParserRulesParser.DefinitionContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.structDefinition"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterStructDefinition([NotNull] ParserRulesParser.StructDefinitionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.structDefinition"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitStructDefinition([NotNull] ParserRulesParser.StructDefinitionContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.enumerableDefinition"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterEnumerableDefinition([NotNull] ParserRulesParser.EnumerableDefinitionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.enumerableDefinition"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitEnumerableDefinition([NotNull] ParserRulesParser.EnumerableDefinitionContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.function"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterFunction([NotNull] ParserRulesParser.FunctionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.function"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitFunction([NotNull] ParserRulesParser.FunctionContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.variableDeclaration"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterVariableDeclaration([NotNull] ParserRulesParser.VariableDeclarationContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.variableDeclaration"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitVariableDeclaration([NotNull] ParserRulesParser.VariableDeclarationContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.arrayDeclaration"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterArrayDeclaration([NotNull] ParserRulesParser.ArrayDeclarationContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.arrayDeclaration"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitArrayDeclaration([NotNull] ParserRulesParser.ArrayDeclarationContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.arrayAssignment"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterArrayAssignment([NotNull] ParserRulesParser.ArrayAssignmentContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.arrayAssignment"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitArrayAssignment([NotNull] ParserRulesParser.ArrayAssignmentContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.statement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterStatement([NotNull] ParserRulesParser.StatementContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.statement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitStatement([NotNull] ParserRulesParser.StatementContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.block"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterBlock([NotNull] ParserRulesParser.BlockContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.block"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitBlock([NotNull] ParserRulesParser.BlockContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.expressionStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterExpressionStatement([NotNull] ParserRulesParser.ExpressionStatementContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.expressionStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitExpressionStatement([NotNull] ParserRulesParser.ExpressionStatementContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.whileStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterWhileStatement([NotNull] ParserRulesParser.WhileStatementContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.whileStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitWhileStatement([NotNull] ParserRulesParser.WhileStatementContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.forStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterForStatement([NotNull] ParserRulesParser.ForStatementContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.forStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitForStatement([NotNull] ParserRulesParser.ForStatementContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.doWhileStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterDoWhileStatement([NotNull] ParserRulesParser.DoWhileStatementContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.doWhileStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitDoWhileStatement([NotNull] ParserRulesParser.DoWhileStatementContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.switchStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterSwitchStatement([NotNull] ParserRulesParser.SwitchStatementContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.switchStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitSwitchStatement([NotNull] ParserRulesParser.SwitchStatementContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.case_"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterCase_([NotNull] ParserRulesParser.Case_Context context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.case_"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitCase_([NotNull] ParserRulesParser.Case_Context context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.returnStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterReturnStatement([NotNull] ParserRulesParser.ReturnStatementContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.returnStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitReturnStatement([NotNull] ParserRulesParser.ReturnStatementContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.breakStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterBreakStatement([NotNull] ParserRulesParser.BreakStatementContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.breakStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitBreakStatement([NotNull] ParserRulesParser.BreakStatementContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.continueStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterContinueStatement([NotNull] ParserRulesParser.ContinueStatementContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.continueStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitContinueStatement([NotNull] ParserRulesParser.ContinueStatementContext context);
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="ParserRulesParser.expression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -261,73 +71,53 @@ public interface IParserRulesListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitPrimary([NotNull] ParserRulesParser.PrimaryContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.unary"/>.
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.value"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterUnary([NotNull] ParserRulesParser.UnaryContext context);
+	void EnterValue([NotNull] ParserRulesParser.ValueContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.unary"/>.
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.value"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitUnary([NotNull] ParserRulesParser.UnaryContext context);
+	void ExitValue([NotNull] ParserRulesParser.ValueContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.grouping"/>.
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryOp"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterGrouping([NotNull] ParserRulesParser.GroupingContext context);
+	void EnterBinaryOp([NotNull] ParserRulesParser.BinaryOpContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.grouping"/>.
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryOp"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitGrouping([NotNull] ParserRulesParser.GroupingContext context);
+	void ExitBinaryOp([NotNull] ParserRulesParser.BinaryOpContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.arrayAccess"/>.
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.number"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterArrayAccess([NotNull] ParserRulesParser.ArrayAccessContext context);
+	void EnterNumber([NotNull] ParserRulesParser.NumberContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.arrayAccess"/>.
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.number"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitArrayAccess([NotNull] ParserRulesParser.ArrayAccessContext context);
+	void ExitNumber([NotNull] ParserRulesParser.NumberContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.call"/>.
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.true"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterCall([NotNull] ParserRulesParser.CallContext context);
+	void EnterTrue([NotNull] ParserRulesParser.TrueContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.call"/>.
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.true"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitCall([NotNull] ParserRulesParser.CallContext context);
+	void ExitTrue([NotNull] ParserRulesParser.TrueContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.typeCast"/>.
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.false"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterTypeCast([NotNull] ParserRulesParser.TypeCastContext context);
+	void EnterFalse([NotNull] ParserRulesParser.FalseContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.typeCast"/>.
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.false"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitTypeCast([NotNull] ParserRulesParser.TypeCastContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.assignment"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterAssignment([NotNull] ParserRulesParser.AssignmentContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.assignment"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitAssignment([NotNull] ParserRulesParser.AssignmentContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.fieldAccess"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterFieldAccess([NotNull] ParserRulesParser.FieldAccessContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.fieldAccess"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitFieldAccess([NotNull] ParserRulesParser.FieldAccessContext context);
+	void ExitFalse([NotNull] ParserRulesParser.FalseContext context);
 }

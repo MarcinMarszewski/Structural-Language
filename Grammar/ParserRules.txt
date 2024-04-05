@@ -1,0 +1,57 @@
+grammar ParserRules;
+
+import LexerRules;
+
+options {
+    
+}
+
+program : (definition )+ ;
+
+
+definition : structDefinition | enumerableDefinition | variableDeclaration | function | arrayDeclaration ;
+structDefinition : STRUCT identifier  LCURLYBRACKET  ((TYPE | identifier) ( LSQUAREBRACKET RSQUAREBRACKET)? identifier  SEMICOLON )+ RCURLYBRACKET;
+enumerableDefinition : ENUM identifier  LCURLYBRACKET  identifier  (EQUAL  NUMBER)?  (COMMA  identifier  (EQUAL  NUMBER )? )*  COMMA?  RCURLYBRACKET;
+function : (TYPE | identifier) identifier  LPARENTHESIS  ((TYPE | identifier) identifier  (COMMA  (TYPE | identifier) identifier  )*)?  RPARENTHESIS  LCURLYBRACKET  (statement )* RCURLYBRACKET;
+variableDeclaration : (TYPE | identifier) (identifier | assignment)  (COMMA  (identifier | assignment)  )*  SEMICOLON;
+arrayDeclaration : (TYPE | identifier)  LSQUAREBRACKET  RSQUAREBRACKET (identifier | arrayAssignment)  (COMMA  (identifier | arrayAssignment) )*  SEMICOLON;
+arrayAssignment : identifier  EQUAL  ( (LSQUAREBRACKET  expression  RSQUAREBRACKET) | (LCURLYBRACKET expression (COMMA expression)* COMMA? RCURLYBRACKET) );
+
+
+statement : switchStatement | variableDeclaration | arrayDeclaration | expressionStatement | whileStatement | block | forStatement | doWhileStatement | returnStatement | breakStatement | continueStatement;
+
+block : LCURLYBRACKET  (statement )* RCURLYBRACKET;
+expressionStatement : expression  SEMICOLON;
+whileStatement : WHILE  LPARENTHESIS  expression RPARENTHESIS  statement;
+forStatement : FOR  LPARENTHESIS  (variableDeclaration | SEMICOLON)  expression?  SEMICOLON  expression?  RPARENTHESIS  statement;
+doWhileStatement : DO  statement  WHILE  LPARENTHESIS  expression  RPARENTHESIS SEMICOLON ;
+ifStatement : IF LPARENTHESIS expression RPARENTHESIS statement (ELSE statement)?;
+switchStatement : SWITCH  LPARENTHESIS  expression  RPARENTHESIS  LCURLYBRACKET  case_  ((case_ | statement)  )*  (DEFAULT  COLON  (statement  )*)?  RCURLYBRACKET;
+case_ : CASE expression  COLON;
+returnStatement : RETURN expression  SEMICOLON;
+breakStatement : BREAK  SEMICOLON;
+continueStatement : CONTINUE  SEMICOLON;
+
+expression : ternary;
+
+ternary : binary (QUESTIONMARK expression COLON expression)?;
+
+binary : primary ( binaryOp primary)?;
+binaryOp : BINARYMATH | BINARYBITWISE | BINARYLOGIC;
+
+primary : variableAccess | number | call | grouping | unary | assignment | arrayAccess | fieldAccess | typeCast | true | false | arrayAssignment;
+variableAccess: IDENTIFIER;
+number: NUMBER;
+true: TRUE;
+false: FALSE;
+
+
+unary : unaryOp expression;
+unaryOp: MINUS | EXCLAMATION;
+grouping : LPARENTHESIS  expression  RPARENTHESIS;
+
+arrayAccess : identifier LSQUAREBRACKET  expression  RSQUAREBRACKET;
+call : identifier LPARENTHESIS (expression  (COMMA  expression )* )? RPARENTHESIS;
+typeCast : LPARENTHESIS  (TYPE | identifier)  RPARENTHESIS  expression;
+assignment : identifier  (BINARYMATH | BINARYBITWISE)? EQUAL expression;
+fieldAccess : identifier DOT identifier;

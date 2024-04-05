@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Antlr4.Runtime;
 
+while (true)
 try
 {
     string input = "";
@@ -18,21 +19,11 @@ try
     CommonTokenStream commonTokenStream = new CommonTokenStream( lexer );
     ParserRulesParser parser = new ParserRulesParser( commonTokenStream );
 
-    ParserRulesParser.ProgramContext programContext = parser.program();
+    ParserRulesParser.ExpressionContext programContext = parser.expression();
     BasicParserRulesVisitor visitor = new BasicParserRulesVisitor();
     visitor.Visit(programContext);
-
-    foreach(var x in visitor.definitions)
-    {
-        Console.WriteLine(x.content);
-    }
-
-    foreach(var y in visitor.types) 
-    { 
-        Console.WriteLine(y);
-    }
 }
 catch (Exception ex)
 {
-    Console.WriteLine (ex);
+    Console.WriteLine (ex.Message);
 }
