@@ -32,6 +32,36 @@ using IToken = Antlr4.Runtime.IToken;
 [System.CLSCompliant(false)]
 public interface IParserRulesVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.program"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitProgram([NotNull] ParserRulesParser.ProgramContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.statement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitStatement([NotNull] ParserRulesParser.StatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.variableDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitVariableDeclaration([NotNull] ParserRulesParser.VariableDeclarationContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.type"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitType([NotNull] ParserRulesParser.TypeContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.expressionStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitExpressionStatement([NotNull] ParserRulesParser.ExpressionStatementContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="ParserRulesParser.expression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -56,11 +86,35 @@ public interface IParserRulesVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitPrimary([NotNull] ParserRulesParser.PrimaryContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.variableAssignment"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitVariableAssignment([NotNull] ParserRulesParser.VariableAssignmentContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.variableAccess"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitVariableAccess([NotNull] ParserRulesParser.VariableAccessContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.grouping"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitGrouping([NotNull] ParserRulesParser.GroupingContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="ParserRulesParser.value"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitValue([NotNull] ParserRulesParser.ValueContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.unary"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitUnary([NotNull] ParserRulesParser.UnaryContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="ParserRulesParser.binaryOp"/>.
 	/// </summary>

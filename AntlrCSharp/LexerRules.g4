@@ -1,11 +1,22 @@
 lexer grammar LexerRules;
 
+INT: 'int';
+FLOAT: 'float';
+
 TRUE: 'true';
 FALSE: 'false';
+
+LROUNDBRACKET: '(';
+RROUNDBRACKET: ')';
+LSQUAREBRACKET: '[';
+RSQUAREBRACKET: ']';
+LCURLYBRACKET: '{';
+RCURLYBRACKET: '}';
 
 QUESTIONMARK: '?';
 COLON: ':';
 EXCLAMATION : '!';
+SEMICOLON: ';';
 
 PLUS: '+';
 MINUS: '-';
@@ -29,6 +40,8 @@ LESSEQUAL : '<=';
 GREATEREQUAL : '>=';
 LESS : '<';
 GREATER : '>';
+
+EQUAL : '=';
 
 NUMBER : DIGIT+ ('.' DIGIT+)?;
 fragment DIGIT : '0'..'9';

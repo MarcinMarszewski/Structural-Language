@@ -36,6 +36,66 @@ using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 [System.CLSCompliant(false)]
 public partial class ParserRulesBaseListener : IParserRulesListener {
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.program"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterProgram([NotNull] ParserRulesParser.ProgramContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.program"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitProgram([NotNull] ParserRulesParser.ProgramContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.statement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterStatement([NotNull] ParserRulesParser.StatementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.statement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitStatement([NotNull] ParserRulesParser.StatementContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.variableDeclaration"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterVariableDeclaration([NotNull] ParserRulesParser.VariableDeclarationContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.variableDeclaration"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitVariableDeclaration([NotNull] ParserRulesParser.VariableDeclarationContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.type"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterType([NotNull] ParserRulesParser.TypeContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.type"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitType([NotNull] ParserRulesParser.TypeContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.expressionStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterExpressionStatement([NotNull] ParserRulesParser.ExpressionStatementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.expressionStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitExpressionStatement([NotNull] ParserRulesParser.ExpressionStatementContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="ParserRulesParser.expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -84,6 +144,42 @@ public partial class ParserRulesBaseListener : IParserRulesListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitPrimary([NotNull] ParserRulesParser.PrimaryContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.variableAssignment"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterVariableAssignment([NotNull] ParserRulesParser.VariableAssignmentContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.variableAssignment"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitVariableAssignment([NotNull] ParserRulesParser.VariableAssignmentContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.variableAccess"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterVariableAccess([NotNull] ParserRulesParser.VariableAccessContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.variableAccess"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitVariableAccess([NotNull] ParserRulesParser.VariableAccessContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.grouping"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterGrouping([NotNull] ParserRulesParser.GroupingContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.grouping"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitGrouping([NotNull] ParserRulesParser.GroupingContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="ParserRulesParser.value"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -95,6 +191,18 @@ public partial class ParserRulesBaseListener : IParserRulesListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitValue([NotNull] ParserRulesParser.ValueContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.unary"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterUnary([NotNull] ParserRulesParser.UnaryContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.unary"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitUnary([NotNull] ParserRulesParser.UnaryContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryOp"/>.
 	/// <para>The default implementation does nothing.</para>

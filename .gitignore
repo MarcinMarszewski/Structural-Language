@@ -6,6 +6,10 @@
 *.user
 *.sln.docstates
 
+#Antlr generated files
+*.java
+*.cache
+
 # Build results
 
 [Dd]ebug/

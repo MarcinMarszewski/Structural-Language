@@ -1,13 +1,51 @@
 using System.Globalization;
 using Antlr4.Runtime.Misc;
+using AntlrCSharp;
 using static ParserRulesParser;
 
 public class BasicParserRulesVisitor : ParserRulesBaseVisitor<object> 
 {
-	public override object VisitExpression([NotNull] ExpressionContext context)
+	VariableEnvironment variableEnvironment = new VariableEnvironment();
+
+    public override object VisitStatement([NotNull] StatementContext context)
+    {
+		foreach (var child in context.children) Visit(child);
+        //Visit(context.GetChild(0));
+
+		return null;
+    }
+
+    public override object VisitVariableDeclaration([NotNull] VariableDeclarationContext context)
+    {
+		Type type = typeof(int);
+		switch (context.type().GetText())
+		{
+			case "int":
+				type = typeof(int);
+				break;
+			case "float": 
+				type = typeof(float);
+				break;
+			default:
+				break;
+		}
+
+		object value = null;
+		if(context.expression() != null)
+			value = VisitExpression(context.expression());
+
+		variableEnvironment.AddVariable(context.IDENTIFIER().GetText(), type, value);
+        return null;
+    }
+
+    public override object VisitExpressionStatement([NotNull] ExpressionStatementContext context)
+    {
+		Console.WriteLine(VisitExpression(context.expression()));
+		return null;
+    }
+    public override object VisitExpression([NotNull] ExpressionContext context)
 	{
-		Console.WriteLine(VisitTernary(context.ternary()));
-		return base.VisitExpression(context);
+		return VisitTernary(context.ternary());
 	}
 
 	public override object VisitTernary([NotNull] TernaryContext context)
@@ -34,12 +72,46 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<object>
 		return Visit(context.GetChild(0));
 	}
 
-	public override object VisitValue([NotNull] ValueContext context)
+    public override object VisitGrouping([NotNull] GroupingContext context)
+    {
+        return Visit(context.expression());
+    }
+
+    public override object VisitVariableAssignment([NotNull] VariableAssignmentContext context)
+    {
+		object val = VisitExpression(context.expression());
+		string id = context.IDENTIFIER().GetText();
+		variableEnvironment.UpdateVariable(id, val.GetType(), val);
+
+        return val;
+    }
+
+    public override object VisitVariableAccess([NotNull] VariableAccessContext context)
+    {
+        return variableEnvironment.GetVariable(context.IDENTIFIER().GetText());
+    }
+
+    public override object VisitValue([NotNull] ValueContext context)
 	{
 		return Visit(context.GetChild(0));
 	}
 
-	public override object VisitNumber([NotNull] NumberContext context)
+    public override object VisitUnary([NotNull] UnaryContext context)
+    {
+        object val = VisitPrimary(context.primary());
+        switch (context.GetChild(0).GetText()[0])
+		{
+			case '!':
+				return !isTrue(val);
+			case '-':
+				if (val is float) return -(float)val;
+				else if (val is int) return -(int)val;
+				break;
+		}
+        throw new LanguageError($"Cannot perform unary operation: {context.GetChild(0).GetText()[0]}");
+    }
+
+    public override object VisitNumber([NotNull] NumberContext context)
 	{
 		string num = context.GetText();
 		if (num.Contains('.')) 

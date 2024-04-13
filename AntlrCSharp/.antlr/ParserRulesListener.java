@@ -7,6 +7,46 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface ParserRulesListener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link ParserRulesParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatement(ParserRulesParser.StatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserRulesParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatement(ParserRulesParser.StatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserRulesParser#variableDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariableDeclaration(ParserRulesParser.VariableDeclarationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserRulesParser#variableDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariableDeclaration(ParserRulesParser.VariableDeclarationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserRulesParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void enterType(ParserRulesParser.TypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserRulesParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void exitType(ParserRulesParser.TypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserRulesParser#expressionStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpressionStatement(ParserRulesParser.ExpressionStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserRulesParser#expressionStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpressionStatement(ParserRulesParser.ExpressionStatementContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link ParserRulesParser#expression}.
 	 * @param ctx the parse tree
 	 */
@@ -46,6 +86,16 @@ public interface ParserRulesListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPrimary(ParserRulesParser.PrimaryContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserRulesParser#grouping}.
+	 * @param ctx the parse tree
+	 */
+	void enterGrouping(ParserRulesParser.GroupingContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserRulesParser#grouping}.
+	 * @param ctx the parse tree
+	 */
+	void exitGrouping(ParserRulesParser.GroupingContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ParserRulesParser#value}.
 	 * @param ctx the parse tree
