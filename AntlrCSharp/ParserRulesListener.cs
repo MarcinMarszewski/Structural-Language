@@ -61,6 +61,16 @@ public interface IParserRulesListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitVariableDeclaration([NotNull] ParserRulesParser.VariableDeclarationContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.variableDeclarationExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterVariableDeclarationExpression([NotNull] ParserRulesParser.VariableDeclarationExpressionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.variableDeclarationExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitVariableDeclarationExpression([NotNull] ParserRulesParser.VariableDeclarationExpressionContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="ParserRulesParser.type"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -80,6 +90,36 @@ public interface IParserRulesListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitExpressionStatement([NotNull] ParserRulesParser.ExpressionStatementContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.blockStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBlockStatement([NotNull] ParserRulesParser.BlockStatementContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.blockStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBlockStatement([NotNull] ParserRulesParser.BlockStatementContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.whileStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterWhileStatement([NotNull] ParserRulesParser.WhileStatementContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.whileStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitWhileStatement([NotNull] ParserRulesParser.WhileStatementContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.forStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterForStatement([NotNull] ParserRulesParser.ForStatementContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.forStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitForStatement([NotNull] ParserRulesParser.ForStatementContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="ParserRulesParser.expression"/>.
 	/// </summary>

@@ -5,13 +5,20 @@ import LexerRules;
 //topmost list of rules, subject to change
 program: statement+;
 
-statement: expressionStatement | variableDeclaration;
+statement: expressionStatement | variableDeclaration | blockStatement | whileStatement | forStatement;
+ 
+variableDeclaration: variableDeclarationExpression SEMICOLON;
+variableDeclarationExpression: type IDENTIFIER (EQUAL expression)?;
 
-variableDeclaration: type IDENTIFIER (EQUAL expression)? SEMICOLON ;
-//identifier currently can be type, but isnt used yet
-type: (IDENTIFIER | INT | FLOAT) (LSQUAREBRACKET RSQUAREBRACKET)* ;
+type: (INT | FLOAT) (LSQUAREBRACKET RSQUAREBRACKET)* ;
 
 expressionStatement: expression SEMICOLON;
+
+blockStatement: LCURLYBRACKET (statement)* RCURLYBRACKET;
+
+whileStatement: WHILE grouping blockStatement;
+
+forStatement : FOR LROUNDBRACKET variableDeclarationExpression SEMICOLON expression SEMICOLON expression RROUNDBRACKET blockStatement;
 
 
 expression : ternary;

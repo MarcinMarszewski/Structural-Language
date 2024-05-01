@@ -50,6 +50,12 @@ public interface IParserRulesVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitVariableDeclaration([NotNull] ParserRulesParser.VariableDeclarationContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.variableDeclarationExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitVariableDeclarationExpression([NotNull] ParserRulesParser.VariableDeclarationExpressionContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="ParserRulesParser.type"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -61,6 +67,24 @@ public interface IParserRulesVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitExpressionStatement([NotNull] ParserRulesParser.ExpressionStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.blockStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBlockStatement([NotNull] ParserRulesParser.BlockStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.whileStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitWhileStatement([NotNull] ParserRulesParser.WhileStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.forStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitForStatement([NotNull] ParserRulesParser.ForStatementContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="ParserRulesParser.expression"/>.
 	/// </summary>

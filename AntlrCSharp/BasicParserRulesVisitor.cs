@@ -1,54 +1,97 @@
+using System;
 using System.Globalization;
 using Antlr4.Runtime.Misc;
 using AntlrCSharp;
 using static ParserRulesParser;
 
-public class BasicParserRulesVisitor : ParserRulesBaseVisitor<object> 
+public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable> 
 {
 	VariableEnvironment variableEnvironment = new VariableEnvironment();
+	static readonly Variable _nullValue = new Variable(VariableType.NULL, null);
 
-    public override object VisitStatement([NotNull] StatementContext context)
+    public override Variable VisitProgram([NotNull] ProgramContext context)
     {
-		foreach (var child in context.children) Visit(child);
-        //Visit(context.GetChild(0));
-
-		return null;
+		foreach (var stmnt in context.children) Visit(stmnt);
+		return _nullValue;
     }
 
-    public override object VisitVariableDeclaration([NotNull] VariableDeclarationContext context)
+    public override Variable VisitStatement([NotNull] StatementContext context)
     {
-		Type type = typeof(int);
-		switch (context.type().GetText())
+        Visit(context.GetChild(0));
+		return _nullValue;
+    }
+
+    public override Variable VisitVariableDeclaration([NotNull] VariableDeclarationContext context)
+    {
+		return VisitVariableDeclarationExpression(context.variableDeclarationExpression());
+    }
+
+    public override Variable VisitVariableDeclarationExpression([NotNull] VariableDeclarationExpressionContext context)
+    {
+        VariableType type = VariableType.NULL;
+        switch (context.type().GetText())
+        {
+            case "int":
+                type = VariableType.INT;
+                break;
+            case "float":
+                type = VariableType.FLOAT;
+                break;
+        }
+
+        object value = default;
+        if (context.expression() != null) value = VisitExpression(context.expression()).value;
+
+        variableEnvironment.AddVariable(context.IDENTIFIER().GetText(), type, value);
+        return _nullValue;
+    }
+
+    public override Variable VisitBlockStatement([NotNull] BlockStatementContext context)
+    {
+		UpScope();
+		for(int i = 1; i < context.children.Count - 1; i++)
 		{
-			case "int":
-				type = typeof(int);
-				break;
-			case "float": 
-				type = typeof(float);
-				break;
-			default:
-				break;
+			Visit(context.GetChild(i));
 		}
-
-		object value = null;
-		if(context.expression() != null)
-			value = VisitExpression(context.expression());
-
-		variableEnvironment.AddVariable(context.IDENTIFIER().GetText(), type, value);
-        return null;
+		DownScope();
+		return _nullValue;
     }
 
-    public override object VisitExpressionStatement([NotNull] ExpressionStatementContext context)
+    public override Variable VisitWhileStatement([NotNull] WhileStatementContext context)
     {
-		Console.WriteLine(VisitExpression(context.expression()));
-		return null;
+        while(isTrue(Visit(context.GetChild(1)).value))
+		{
+			Visit(context.GetChild(2));
+		}
+		return _nullValue;
     }
-    public override object VisitExpression([NotNull] ExpressionContext context)
+
+    public override Variable VisitForStatement([NotNull] ForStatementContext context)
+    {
+		UpScope();
+		VisitVariableDeclarationExpression(context.GetChild<VariableDeclarationExpressionContext>(0));
+		while (isTrue(VisitExpression(context.GetChild<ExpressionContext>(0)).value))
+		{
+			VisitBlockStatement(context.GetChild<BlockStatementContext>(0));
+			VisitExpression(context.GetChild<ExpressionContext>(1));
+		}
+		DownScope();
+		return _nullValue;
+    }
+
+    public override Variable VisitExpressionStatement([NotNull] ExpressionStatementContext context)
+    {
+		//Console.WriteLine do usuniêcia póŸniej
+		object val = VisitExpression(context.expression()).value;
+		Console.WriteLine(val);
+		return _nullValue;
+    }
+    public override Variable VisitExpression([NotNull] ExpressionContext context)
 	{
 		return VisitTernary(context.ternary());
 	}
 
-	public override object VisitTernary([NotNull] TernaryContext context)
+	public override Variable VisitTernary([NotNull] TernaryContext context)
 	{
 		if (context.ChildCount > 1) { 
 			return isTrue(VisitBinary(context.binary())) 
@@ -58,75 +101,86 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<object>
 			return VisitBinary(context.binary());
 	}
 
-	public override object VisitBinary([NotNull] BinaryContext context)
+	public override Variable VisitBinary([NotNull] BinaryContext context)
 	{
-		if(context.ChildCount > 1) { 
-			return binaryCalculate(VisitPrimary(context.primary()), VisitBinary(context.binary()), context.binaryOp().GetText()+" ");
+		if(context.ChildCount > 1) {
+			VariableType type;
+			object value = binaryCalculate(VisitPrimary(context.primary()), VisitBinary(context.binary()), context.binaryOp().GetText()+" ",out type);
+			return new Variable(type, value);
 		}
 		else
 			return VisitPrimary(context.primary());
 	}
 
-	public override object VisitPrimary([NotNull] PrimaryContext context)
+	public override Variable VisitPrimary([NotNull] PrimaryContext context)
 	{
 		return Visit(context.GetChild(0));
 	}
 
-    public override object VisitGrouping([NotNull] GroupingContext context)
+    public override Variable VisitGrouping([NotNull] GroupingContext context)
     {
         return Visit(context.expression());
     }
 
-    public override object VisitVariableAssignment([NotNull] VariableAssignmentContext context)
+    public override Variable VisitVariableAssignment([NotNull] VariableAssignmentContext context)
     {
-		object val = VisitExpression(context.expression());
+		Variable val = VisitExpression(context.expression());
 		string id = context.IDENTIFIER().GetText();
-		variableEnvironment.UpdateVariable(id, val.GetType(), val);
+		variableEnvironment.UpdateVariable(id, val.type, val.value);
 
         return val;
     }
 
-    public override object VisitVariableAccess([NotNull] VariableAccessContext context)
+    public override Variable VisitVariableAccess([NotNull] VariableAccessContext context)
     {
         return variableEnvironment.GetVariable(context.IDENTIFIER().GetText());
     }
 
-    public override object VisitValue([NotNull] ValueContext context)
+    public override Variable VisitValue([NotNull] ValueContext context)
 	{
 		return Visit(context.GetChild(0));
 	}
 
-    public override object VisitUnary([NotNull] UnaryContext context)
+    public override Variable VisitUnary([NotNull] UnaryContext context)
     {
-        object val = VisitPrimary(context.primary());
+        Variable val = VisitPrimary(context.primary());
         switch (context.GetChild(0).GetText()[0])
 		{
 			case '!':
-				return !isTrue(val);
+				val.value=!isTrue(val.value);
+				return val;
 			case '-':
-				if (val is float) return -(float)val;
-				else if (val is int) return -(int)val;
-				break;
+				if (val.type == VariableType.FLOAT)
+				{
+					val.value = -(float)val.value;
+					return val;
+				}
+				else if (val.type == VariableType.INT)
+                {
+                    val.value = -(int)val.value;
+                    return val;
+                }
+                break;
 		}
         throw new LanguageError($"Cannot perform unary operation: {context.GetChild(0).GetText()[0]}");
     }
 
-    public override object VisitNumber([NotNull] NumberContext context)
+    public override Variable VisitNumber([NotNull] NumberContext context)
 	{
 		string num = context.GetText();
 		if (num.Contains('.')) 
-			return float.Parse(num, CultureInfo.InvariantCulture.NumberFormat); 
-		else 
-			return int.Parse(num);
-	}
-	public override object VisitTrue([NotNull] TrueContext context)
+			return new Variable(VariableType.FLOAT, float.Parse(num, CultureInfo.InvariantCulture.NumberFormat));
+		else
+            return new Variable(VariableType.INT, int.Parse(num));
+    }
+	public override Variable VisitTrue([NotNull] TrueContext context)
 	{
-		return 1;
-	}
-	public override object VisitFalse([NotNull] FalseContext context)
+        return new Variable(VariableType.INT, 1);
+    }
+    public override Variable VisitFalse([NotNull] FalseContext context)
 	{
-		return 0;
-	}
+        return new Variable(VariableType.INT, 0);
+    }
 
 	private bool isTrue(object obj)
 	{
@@ -136,15 +190,17 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<object>
 	}
 
 	//only for int and float operations
-	private object binaryCalculate(object v1, object v2, string op)
+	private object binaryCalculate(Variable v1, Variable v2, string op, out VariableType resultType)
 	{
-		if (!(v1 is float || v1 is int) || !(v2 is float || v2 is int))
+		if (!(v1.type == VariableType.FLOAT || v1.type == VariableType.INT) 
+			|| !(v2.type  == VariableType.FLOAT || v2.type == VariableType.INT))
 			throw new Exception("Cannot use numeric binary operators for non-numeric values");
 
-		if (v1 is float || v2 is float)
+		if (v1.type == VariableType.FLOAT || v2.type == VariableType.FLOAT)
 		{
-			float val1 = Convert.ToSingle(v1);
-			float val2 = Convert.ToSingle(v2);
+			float val1 = Convert.ToSingle(v1.value);
+			float val2 = Convert.ToSingle(v2.value);
+			resultType = VariableType.FLOAT;
 
 			switch (op[0])
 			{
@@ -159,17 +215,17 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<object>
 				case '%':
 					return val1 % val2;
 				case '<':
-					if (op[1] == '=') return val1 <= val2;
+					if (op[1] == '=') return val1 <= val2?1:0;
 					if (op[1] == '<') throw new Exception("No binary operation found for operator: " + op);
-					return val1 < val2;
+					return val1 < val2?1:0;
 				case '>':
-					if (op[1] == '=') return val1 >= val2;
+					if (op[1] == '=') return val1 >= val2 ? 1 : 0;
 					if (op[1] == '>') throw new Exception("No binary operation found for operator: " + op);
-					return val1 > val2;
+					return val1 > val2 ? 1 : 0;
 				case '!':
-					return val1 != val2;
+					return val1 != val2 ? 1 : 0;
 				case '=':
-					return val1 != val2;
+					return val1 != val2 ? 1 : 0;
 				case '&':
 					if (op[1] == '&') return isTrue(val1) && isTrue(val2) ? 1 : 0;
 					throw new Exception("No binary operation found for operator: " + op);
@@ -183,8 +239,9 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<object>
 		}
 		else
 		{
-			int val1 = Convert.ToInt32(v1);
-            int val2 = Convert.ToInt32(v2);
+			int val1 = Convert.ToInt32(v1.value);
+            int val2 = Convert.ToInt32(v2.value);
+			resultType = VariableType.INT;
 
             switch (op[0])
 			{
@@ -199,17 +256,17 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<object>
 				case '%':
 					return val1 % val2;
 				case '<':
-					if (op[1] == '=') return val1 <= val2;
+					if (op[1] == '=') return val1 <= val2 ? 1 : 0;
 					if (op[1] == '<') return val1 << val2;
-					return val1 < val2;
+					return val1 < val2 ? 1 : 0;
 				case '>':
-					if (op[1] == '=') return val1 >= val2;
+					if (op[1] == '=') return val1 >= val2 ? 1 : 0;
 					if (op[1] == '>') return val1 >> val2;
-					return val1 > val2;
+					return val1 > val2 ? 1 : 0;
 				case '!':
-					return val1 != val2;
+					return val1 != val2 ? 1 : 0;
 				case '=':
-					return val1 != val2;
+					return val1 != val2 ? 1 : 0;
 				case '&':
 					if (op[1] == '&') return isTrue(val1) && isTrue(val2) ? 1 : 0;
 					return val1 & val2;
@@ -222,5 +279,15 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<object>
 					throw new Exception("No binary operation found for operator: " + op);
 			}
 		}
+	}
+
+	private void UpScope()
+	{
+		variableEnvironment = new VariableEnvironment(variableEnvironment);
+	}
+	private void DownScope() 
+	{
+		if (variableEnvironment.previous is null) throw new LanguageError("Cannot lower scope.");
+		variableEnvironment = variableEnvironment.previous;
 	}
 }

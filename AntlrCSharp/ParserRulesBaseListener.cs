@@ -72,6 +72,18 @@ public partial class ParserRulesBaseListener : IParserRulesListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitVariableDeclaration([NotNull] ParserRulesParser.VariableDeclarationContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.variableDeclarationExpression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterVariableDeclarationExpression([NotNull] ParserRulesParser.VariableDeclarationExpressionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.variableDeclarationExpression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitVariableDeclarationExpression([NotNull] ParserRulesParser.VariableDeclarationExpressionContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="ParserRulesParser.type"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -95,6 +107,42 @@ public partial class ParserRulesBaseListener : IParserRulesListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitExpressionStatement([NotNull] ParserRulesParser.ExpressionStatementContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.blockStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBlockStatement([NotNull] ParserRulesParser.BlockStatementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.blockStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBlockStatement([NotNull] ParserRulesParser.BlockStatementContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.whileStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterWhileStatement([NotNull] ParserRulesParser.WhileStatementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.whileStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitWhileStatement([NotNull] ParserRulesParser.WhileStatementContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.forStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterForStatement([NotNull] ParserRulesParser.ForStatementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.forStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitForStatement([NotNull] ParserRulesParser.ForStatementContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="ParserRulesParser.expression"/>.
 	/// <para>The default implementation does nothing.</para>

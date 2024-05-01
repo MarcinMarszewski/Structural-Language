@@ -6,30 +6,82 @@ using System.Threading.Tasks;
 
 namespace AntlrCSharp
 {
-	internal struct Variable 
+	public enum VariableType
 	{
-		public Type type;
-		public object value;
+		INT,
+		FLOAT,
+		CONTAINER,
+		EVENT,
+		NULL
 	}
+
+	public class Variable
+	{
+		public VariableType type;
+		public object value;
+
+        public Variable(VariableType type, object value)
+        {
+            this.type = type;
+            this.value = value;
+        }
+
+        public Type VariableTypeToCSharpType(VariableType t)
+		{
+			switch (t)
+			{
+				case VariableType.INT:
+					return typeof(int);
+				case VariableType.FLOAT: 
+					return typeof(float);
+                case VariableType.NULL:
+					return null;
+                case VariableType.CONTAINER:
+				case VariableType.EVENT:
+					
+				default:
+					throw new LanguageError($"Cannot convert Variable Type: {t}");
+
+			}
+		}
+
+        public VariableType CSharpTypeToVariableType(Type t)
+        {
+			if(t == typeof(float)) return VariableType.FLOAT;
+            if (t == typeof(int)) return VariableType.INT;
+
+			return VariableType.NULL;
+        }
+    }
+
 	//TODO: error handling
 	internal class VariableEnvironment
 	{
 		private Dictionary<string,Variable> variables = new Dictionary<string, Variable>();
-		private VariableEnvironment previous;
+		public VariableEnvironment previous { get; private set; }
 
-		public void AddVariable(string name, Type type, object value)
+        public VariableEnvironment(VariableEnvironment previous)
+        {
+            this.previous = previous;
+        }
+
+        public VariableEnvironment()
+        {
+        }
+
+        public void AddVariable(string name, VariableType type, object value)
 		{
-			variables.Add(name, new Variable() { type = type, value = value});
+			variables.Add(name, new Variable(type, value));
 		}
 
 		//Tutaj logika sprawdzająca i konwertująca typy (float na int itp.)
 		//na razie tylko takie same typy przechodzą
-		public void UpdateVariable(string name, Type type, object value)
+		public void UpdateVariable(string name, VariableType type, object value)
 		{
 			if (variables.ContainsKey(name))
 			{
 				if (variables[name].type == type)
-					variables[name] = new Variable() { type = type, value = value };
+					variables[name] = new Variable(type,value);
 				else
 					throw new LanguageError($"Types don't match when assigning to variable: {name}");
 			}
@@ -38,17 +90,21 @@ namespace AntlrCSharp
 			}
 		}
 
-		public object GetVariable(string name)
+		public Variable GetVariable(string name)
 		{
 			if (variables.ContainsKey(name)) 
-				return variables[name].value;
+				return variables[name];
+			else if(previous!=null)
+				return previous.GetVariable(name);
 			throw new LanguageError($"No variable named {name} in context.");
 		}
 
-		public Type GetType(string name)
+		public VariableType GetType(string name)
 		{
             if (variables.ContainsKey(name))
                 return variables[name].type;
+			else if(previous!= null) 
+				return previous.GetType(name);
             throw new LanguageError($"No variable named {name} in context.");
         }
 	}

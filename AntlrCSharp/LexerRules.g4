@@ -1,5 +1,8 @@
 lexer grammar LexerRules;
 
+FOR: 'for';
+WHILE: 'while';
+
 INT: 'int';
 FLOAT: 'float';
 
