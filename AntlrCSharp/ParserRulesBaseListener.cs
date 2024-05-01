@@ -60,6 +60,42 @@ public partial class ParserRulesBaseListener : IParserRulesListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitStatement([NotNull] ParserRulesParser.StatementContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.breakStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBreakStatement([NotNull] ParserRulesParser.BreakStatementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.breakStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBreakStatement([NotNull] ParserRulesParser.BreakStatementContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.continueStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterContinueStatement([NotNull] ParserRulesParser.ContinueStatementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.continueStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitContinueStatement([NotNull] ParserRulesParser.ContinueStatementContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.ifStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIfStatement([NotNull] ParserRulesParser.IfStatementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.ifStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIfStatement([NotNull] ParserRulesParser.IfStatementContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="ParserRulesParser.variableDeclaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

@@ -12,7 +12,10 @@ namespace AntlrCSharp
 		FLOAT,
 		CONTAINER,
 		EVENT,
-		NULL
+		NULL,
+		CONTINUE_HNDL,
+		BREAK_HNDL,
+		RETURN_HNDL,
 	}
 
 	public class Variable
@@ -58,7 +61,7 @@ namespace AntlrCSharp
 	internal class VariableEnvironment
 	{
 		private Dictionary<string,Variable> variables = new Dictionary<string, Variable>();
-		public VariableEnvironment previous { get; private set; }
+		public VariableEnvironment? previous { get; private set; }
 
         public VariableEnvironment(VariableEnvironment previous)
         {
@@ -67,6 +70,7 @@ namespace AntlrCSharp
 
         public VariableEnvironment()
         {
+			previous = null;
         }
 
         public void AddVariable(string name, VariableType type, object value)
@@ -94,7 +98,7 @@ namespace AntlrCSharp
 		{
 			if (variables.ContainsKey(name)) 
 				return variables[name];
-			else if(previous!=null)
+			else if(previous is not null)
 				return previous.GetVariable(name);
 			throw new LanguageError($"No variable named {name} in context.");
 		}

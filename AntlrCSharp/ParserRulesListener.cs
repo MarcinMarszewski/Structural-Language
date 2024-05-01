@@ -51,6 +51,36 @@ public interface IParserRulesListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitStatement([NotNull] ParserRulesParser.StatementContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.breakStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBreakStatement([NotNull] ParserRulesParser.BreakStatementContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.breakStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBreakStatement([NotNull] ParserRulesParser.BreakStatementContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.continueStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterContinueStatement([NotNull] ParserRulesParser.ContinueStatementContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.continueStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitContinueStatement([NotNull] ParserRulesParser.ContinueStatementContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.ifStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterIfStatement([NotNull] ParserRulesParser.IfStatementContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.ifStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitIfStatement([NotNull] ParserRulesParser.IfStatementContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="ParserRulesParser.variableDeclaration"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

@@ -44,6 +44,24 @@ public interface IParserRulesVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitStatement([NotNull] ParserRulesParser.StatementContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.breakStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBreakStatement([NotNull] ParserRulesParser.BreakStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.continueStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitContinueStatement([NotNull] ParserRulesParser.ContinueStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.ifStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitIfStatement([NotNull] ParserRulesParser.IfStatementContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="ParserRulesParser.variableDeclaration"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

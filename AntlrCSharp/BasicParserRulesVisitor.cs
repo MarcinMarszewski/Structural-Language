@@ -4,10 +4,14 @@ using Antlr4.Runtime.Misc;
 using AntlrCSharp;
 using static ParserRulesParser;
 
+//for(int i=0;i<10;i=i+1){if((i%2)==0){continue;}i;}
 public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable> 
 {
 	VariableEnvironment variableEnvironment = new VariableEnvironment();
 	static readonly Variable _nullValue = new Variable(VariableType.NULL, null);
+	static readonly Variable _breakValue = new Variable(VariableType.BREAK_HNDL, null);
+	static readonly Variable _continueValue = new Variable(VariableType.CONTINUE_HNDL, null);
+
 
     public override Variable VisitProgram([NotNull] ProgramContext context)
     {
@@ -15,10 +19,31 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
 		return _nullValue;
     }
 
+    public override Variable VisitBreakStatement([NotNull] BreakStatementContext context)
+    {
+		return _breakValue;
+    }
+
+    public override Variable VisitContinueStatement([NotNull] ContinueStatementContext context)
+    {
+		return _continueValue;
+    }
+
+    public override Variable VisitIfStatement([NotNull] IfStatementContext context)
+    {
+        if(isTrue(VisitGrouping(context.GetChild<GroupingContext>(0)).value))
+        {
+            return VisitBlockStatement(context.GetChild<BlockStatementContext>(0));
+        }else if(context.ChildCount > 3)
+		{
+			return VisitBlockStatement(context.GetChild<BlockStatementContext>(1));
+		}
+		return _nullValue;
+    }
+
     public override Variable VisitStatement([NotNull] StatementContext context)
     {
-        Visit(context.GetChild(0));
-		return _nullValue;
+        return Visit(context.GetChild(0));
     }
 
     public override Variable VisitVariableDeclaration([NotNull] VariableDeclarationContext context)
@@ -51,7 +76,8 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
 		UpScope();
 		for(int i = 1; i < context.children.Count - 1; i++)
 		{
-			Visit(context.GetChild(i));
+			Variable val = Visit(context.GetChild(i));
+			if (val.type == VariableType.CONTINUE_HNDL || val.type == VariableType.BREAK_HNDL) { DownScope(); return val; }
 		}
 		DownScope();
 		return _nullValue;
@@ -61,8 +87,10 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
     {
         while(isTrue(Visit(context.GetChild(1)).value))
 		{
-			Visit(context.GetChild(2));
-		}
+			Variable val = Visit(context.GetChild(2));
+            if (val.type == VariableType.CONTINUE_HNDL) continue;
+            if (val.type == VariableType.BREAK_HNDL) break;
+        }
 		return _nullValue;
     }
 
@@ -72,9 +100,11 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
 		VisitVariableDeclarationExpression(context.GetChild<VariableDeclarationExpressionContext>(0));
 		while (isTrue(VisitExpression(context.GetChild<ExpressionContext>(0)).value))
 		{
-			VisitBlockStatement(context.GetChild<BlockStatementContext>(0));
-			VisitExpression(context.GetChild<ExpressionContext>(1));
-		}
+			Variable val = VisitBlockStatement(context.GetChild<BlockStatementContext>(0));
+			if (val.type == VariableType.BREAK_HNDL) break;
+            VisitExpression(context.GetChild<ExpressionContext>(1));
+            if (val.type == VariableType.CONTINUE_HNDL) continue;
+        }
 		DownScope();
 		return _nullValue;
     }
@@ -225,7 +255,7 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
 				case '!':
 					return val1 != val2 ? 1 : 0;
 				case '=':
-					return val1 != val2 ? 1 : 0;
+					return val1 == val2 ? 1 : 0;
 				case '&':
 					if (op[1] == '&') return isTrue(val1) && isTrue(val2) ? 1 : 0;
 					throw new Exception("No binary operation found for operator: " + op);
@@ -266,7 +296,7 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
 				case '!':
 					return val1 != val2 ? 1 : 0;
 				case '=':
-					return val1 != val2 ? 1 : 0;
+					return val1 == val2 ? 1 : 0;
 				case '&':
 					if (op[1] == '&') return isTrue(val1) && isTrue(val2) ? 1 : 0;
 					return val1 & val2;

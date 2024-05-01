@@ -2,6 +2,11 @@ lexer grammar LexerRules;
 
 FOR: 'for';
 WHILE: 'while';
+IF: 'if';
+ELSE: 'else';
+
+BREAK: 'break';
+CONTINUE: 'continue';
 
 INT: 'int';
 FLOAT: 'float';

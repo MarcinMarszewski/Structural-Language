@@ -5,8 +5,13 @@ import LexerRules;
 //topmost list of rules, subject to change
 program: statement+;
 
-statement: expressionStatement | variableDeclaration | blockStatement | whileStatement | forStatement;
+statement: expressionStatement | variableDeclaration | blockStatement | whileStatement | forStatement | breakStatement | continueStatement | ifStatement;
  
+breakStatement: BREAK SEMICOLON;
+continueStatement: CONTINUE SEMICOLON;
+
+ifStatement: IF grouping blockStatement (ELSE blockStatement)?;
+
 variableDeclaration: variableDeclarationExpression SEMICOLON;
 variableDeclarationExpression: type IDENTIFIER (EQUAL expression)?;
 
