@@ -7,6 +7,7 @@ ELSE: 'else';
 
 BREAK: 'break';
 CONTINUE: 'continue';
+RETURN: 'return';
 
 INT: 'int';
 FLOAT: 'float';
@@ -20,6 +21,8 @@ LSQUAREBRACKET: '[';
 RSQUAREBRACKET: ']';
 LCURLYBRACKET: '{';
 RCURLYBRACKET: '}';
+
+COMMA: ',';
 
 QUESTIONMARK: '?';
 COLON: ':';

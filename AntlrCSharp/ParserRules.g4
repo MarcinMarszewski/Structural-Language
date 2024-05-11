@@ -3,10 +3,14 @@ grammar ParserRules;
 import LexerRules;
 
 //topmost list of rules, subject to change
-program: statement+;
+program: function+;
 
-statement: expressionStatement | variableDeclaration | blockStatement | whileStatement | forStatement | breakStatement | continueStatement | ifStatement;
+function: type IDENTIFIER LROUNDBRACKET (parameter (COMMA parameter)* )? RROUNDBRACKET    LCURLYBRACKET statement* RCURLYBRACKET;
+parameter: type IDENTIFIER;
+
+statement: expressionStatement | variableDeclaration | blockStatement | whileStatement | forStatement | breakStatement | continueStatement | returnStatement | ifStatement;
  
+returnStatement: RETURN expression? SEMICOLON;
 breakStatement: BREAK SEMICOLON;
 continueStatement: CONTINUE SEMICOLON;
 
@@ -32,7 +36,9 @@ ternary : binary (QUESTIONMARK expression COLON expression)?;
 //need to adjust for order of operations
 binary : primary ( binaryOp binary)?;
 
-primary : value | unary | grouping | variableAccess | variableAssignment;
+primary : value | unary | grouping | variableAccess | variableAssignment | call;
+
+call: IDENTIFIER LROUNDBRACKET (expression (COMMA expression)* )? RROUNDBRACKET;
 
 variableAssignment: IDENTIFIER EQUAL expression;
 

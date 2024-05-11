@@ -22,9 +22,9 @@ try
 	ParserRulesParser parser = new ParserRulesParser( commonTokenStream );
 	ParserRulesParser.ProgramContext programContext = parser.program();
 
-	//new TreeStructurePrinter().Visit(programContext);
 
 	BasicParserRulesVisitor visitor = new BasicParserRulesVisitor();
+	BasicParserRulesVisitor.ClearFunctions();
 	visitor.Visit(programContext);
 }
 catch (Exception ex)

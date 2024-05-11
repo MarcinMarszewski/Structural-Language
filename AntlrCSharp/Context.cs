@@ -78,9 +78,9 @@ namespace AntlrCSharp
 			variables.Add(name, new Variable(type, value));
 		}
 
-		//Tutaj logika sprawdzająca i konwertująca typy (float na int itp.)
-		//na razie tylko takie same typy przechodzą
-		public void UpdateVariable(string name, VariableType type, object value)
+        //Tutaj logika sprawdzająca i konwertująca typy (float na int itp.)
+        //na razie tylko takie same typy przechodzą
+        public void UpdateVariable(string name, VariableType type, object value)
 		{
 			if (variables.ContainsKey(name))
 			{

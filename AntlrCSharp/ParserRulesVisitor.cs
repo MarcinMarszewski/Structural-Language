@@ -38,11 +38,29 @@ public interface IParserRulesVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitProgram([NotNull] ParserRulesParser.ProgramContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.function"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitFunction([NotNull] ParserRulesParser.FunctionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.parameter"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitParameter([NotNull] ParserRulesParser.ParameterContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="ParserRulesParser.statement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitStatement([NotNull] ParserRulesParser.StatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.returnStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitReturnStatement([NotNull] ParserRulesParser.ReturnStatementContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="ParserRulesParser.breakStatement"/>.
 	/// </summary>
@@ -127,6 +145,12 @@ public interface IParserRulesVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitPrimary([NotNull] ParserRulesParser.PrimaryContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.call"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitCall([NotNull] ParserRulesParser.CallContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="ParserRulesParser.variableAssignment"/>.
 	/// </summary>

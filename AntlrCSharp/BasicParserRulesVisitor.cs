@@ -8,15 +8,76 @@ using static ParserRulesParser;
 public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable> 
 {
 	VariableEnvironment variableEnvironment = new VariableEnvironment();
+	static Dictionary<string, FunctionContext> functions = new();
 	static readonly Variable _nullValue = new Variable(VariableType.NULL, null);
 	static readonly Variable _breakValue = new Variable(VariableType.BREAK_HNDL, null);
 	static readonly Variable _continueValue = new Variable(VariableType.CONTINUE_HNDL, null);
+	static readonly string entryPoint = "main";
 
 
     public override Variable VisitProgram([NotNull] ProgramContext context)
     {
-		foreach (var stmnt in context.children) Visit(stmnt);
+		foreach (FunctionContext func in context.function())
+		{
+			functions.Add(func.IDENTIFIER().GetText(), func);
+		}
+		if(!functions.ContainsKey(entryPoint)) throw new LanguageError($"No entry function named:{entryPoint}");
+		VisitFunction(functions[entryPoint]);
 		return _nullValue;
+    }
+
+	public static void ClearFunctions()
+	{
+		functions.Clear();
+	}
+
+    public override Variable VisitFunction([NotNull] FunctionContext context)
+    {
+        foreach(StatementContext stmnt in context.statement())
+		{
+			Variable value = VisitStatement(stmnt);
+			if (value.type == VariableType.RETURN_HNDL) return (Variable)value.value;
+		}
+		return _nullValue;
+    }
+
+    public override Variable VisitCall([NotNull] CallContext context)
+    {
+		string funcName = context.IDENTIFIER().GetText();
+        if (!functions.ContainsKey(funcName)) throw new LanguageError($"No function named:{funcName}");
+
+        BasicParserRulesVisitor visitor = new BasicParserRulesVisitor();
+
+		ExpressionContext[] paramValues = context.expression();
+		ParameterContext[] paramIdentifiers = functions[funcName].parameter();
+		if (paramIdentifiers.Length != paramValues.Length) throw new LanguageError($"Number of parameters in call must be equal to that in definition when calling:{funcName}.");
+		for(int i = 0; i < paramValues.Length; i++)
+		{//should type check
+			visitor.variableEnvironment.AddVariable(paramIdentifiers[i].IDENTIFIER().GetText(),
+				VisitType(paramIdentifiers[i].type()).type,
+				VisitExpression(paramValues[i]).value);
+		}
+		return visitor.VisitFunction(functions[funcName]);
+    }
+
+    public override Variable VisitType([NotNull] TypeContext context)
+    {
+        VariableType type = VariableType.NULL;
+        switch (context.GetText())
+        {
+            case "int":
+                type = VariableType.INT;
+                break;
+            case "float":
+                type = VariableType.FLOAT;
+                break;
+        }
+		return new Variable(type, null);
+    }
+
+    public override Variable VisitReturnStatement([NotNull] ReturnStatementContext context)
+    {
+		return new Variable(VariableType.RETURN_HNDL, VisitExpression(context.expression()));
     }
 
     public override Variable VisitBreakStatement([NotNull] BreakStatementContext context)
@@ -77,7 +138,7 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
 		for(int i = 1; i < context.children.Count - 1; i++)
 		{
 			Variable val = Visit(context.GetChild(i));
-			if (val.type == VariableType.CONTINUE_HNDL || val.type == VariableType.BREAK_HNDL) { DownScope(); return val; }
+			if (val.type == VariableType.CONTINUE_HNDL || val.type == VariableType.BREAK_HNDL || val.type == VariableType.RETURN_HNDL) { DownScope(); return val; }
 		}
 		DownScope();
 		return _nullValue;
@@ -90,6 +151,7 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
 			Variable val = Visit(context.GetChild(2));
             if (val.type == VariableType.CONTINUE_HNDL) continue;
             if (val.type == VariableType.BREAK_HNDL) break;
+			if (val.type == VariableType.RETURN_HNDL) return val;
         }
 		return _nullValue;
     }
@@ -101,7 +163,12 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
 		while (isTrue(VisitExpression(context.GetChild<ExpressionContext>(0)).value))
 		{
 			Variable val = VisitBlockStatement(context.GetChild<BlockStatementContext>(0));
-			if (val.type == VariableType.BREAK_HNDL) break;
+			if (val.type == VariableType.RETURN_HNDL) 
+			{
+				DownScope();
+				return val; 
+			}
+            if (val.type == VariableType.BREAK_HNDL) break;
             VisitExpression(context.GetChild<ExpressionContext>(1));
             if (val.type == VariableType.CONTINUE_HNDL) continue;
         }

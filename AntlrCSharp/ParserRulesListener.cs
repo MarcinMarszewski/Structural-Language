@@ -41,6 +41,26 @@ public interface IParserRulesListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitProgram([NotNull] ParserRulesParser.ProgramContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.function"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterFunction([NotNull] ParserRulesParser.FunctionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.function"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitFunction([NotNull] ParserRulesParser.FunctionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.parameter"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterParameter([NotNull] ParserRulesParser.ParameterContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.parameter"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitParameter([NotNull] ParserRulesParser.ParameterContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="ParserRulesParser.statement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -50,6 +70,16 @@ public interface IParserRulesListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitStatement([NotNull] ParserRulesParser.StatementContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.returnStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterReturnStatement([NotNull] ParserRulesParser.ReturnStatementContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.returnStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitReturnStatement([NotNull] ParserRulesParser.ReturnStatementContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="ParserRulesParser.breakStatement"/>.
 	/// </summary>
@@ -190,6 +220,16 @@ public interface IParserRulesListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitPrimary([NotNull] ParserRulesParser.PrimaryContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.call"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCall([NotNull] ParserRulesParser.CallContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.call"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCall([NotNull] ParserRulesParser.CallContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="ParserRulesParser.variableAssignment"/>.
 	/// </summary>
