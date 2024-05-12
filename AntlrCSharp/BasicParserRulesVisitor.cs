@@ -8,6 +8,8 @@ using static ParserRulesParser;
 public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable> 
 {
 	VariableEnvironment variableEnvironment = new VariableEnvironment();
+	VariableType returnType = VariableType.NULL;
+
 	static Dictionary<string, FunctionContext> functions = new();
 	static readonly Variable _nullValue = new Variable(VariableType.NULL, null);
 	static readonly Variable _breakValue = new Variable(VariableType.BREAK_HNDL, null);
@@ -33,6 +35,7 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
 
     public override Variable VisitFunction([NotNull] FunctionContext context)
     {
+		returnType = VisitType(context.type()).type;
         foreach(StatementContext stmnt in context.statement())
 		{
 			Variable value = VisitStatement(stmnt);
@@ -54,8 +57,7 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
 		for(int i = 0; i < paramValues.Length; i++)
 		{//should type check
 			visitor.variableEnvironment.AddVariable(paramIdentifiers[i].IDENTIFIER().GetText(),
-				VisitType(paramIdentifiers[i].type()).type,
-				VisitExpression(paramValues[i]).value);
+				VariableEnvironment.ConvertType(VisitExpression(paramValues[i]), VisitType(paramIdentifiers[i].type()).type));
 		}
 		return visitor.VisitFunction(functions[funcName]);
     }
@@ -77,7 +79,10 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
 
     public override Variable VisitReturnStatement([NotNull] ReturnStatementContext context)
     {
-		return new Variable(VariableType.RETURN_HNDL, VisitExpression(context.expression()));
+		if (context.expression() == null) return _nullValue;
+		Variable returnValue = VisitExpression(context.expression());
+		returnValue = VariableEnvironment.ConvertType(returnValue, returnType);
+        return new Variable(VariableType.RETURN_HNDL, returnValue);
     }
 
     public override Variable VisitBreakStatement([NotNull] BreakStatementContext context)
@@ -114,21 +119,14 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
 
     public override Variable VisitVariableDeclarationExpression([NotNull] VariableDeclarationExpressionContext context)
     {
-        VariableType type = VariableType.NULL;
-        switch (context.type().GetText())
-        {
-            case "int":
-                type = VariableType.INT;
-                break;
-            case "float":
-                type = VariableType.FLOAT;
-                break;
-        }
+		VariableType type = VisitType(context.type()).type;
+        Variable value = _nullValue;
 
-        object value = default;
-        if (context.expression() != null) value = VisitExpression(context.expression()).value;
+		
+        if (context.expression() != null) value = VisitExpression(context.expression());
+		VariableEnvironment.ConvertType(value, type);
 
-        variableEnvironment.AddVariable(context.IDENTIFIER().GetText(), type, value);
+        variableEnvironment.AddVariable(context.IDENTIFIER().GetText(), new Variable(type, value));
         return _nullValue;
     }
 
@@ -223,7 +221,7 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
     {
 		Variable val = VisitExpression(context.expression());
 		string id = context.IDENTIFIER().GetText();
-		variableEnvironment.UpdateVariable(id, val.type, val.value);
+		variableEnvironment.UpdateVariable(id, val);
 
         return val;
     }
@@ -238,6 +236,7 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
 		return Visit(context.GetChild(0));
 	}
 
+	//account for (to be implemented) null type
     public override Variable VisitUnary([NotNull] UnaryContext context)
     {
         Variable val = VisitPrimary(context.primary());
@@ -279,6 +278,7 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
         return new Variable(VariableType.INT, 0);
     }
 
+	//make it use variable instead
 	private bool isTrue(object obj)
 	{
 		if (obj is int) return (int)obj !=0;
@@ -286,7 +286,7 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
 		return false;
 	}
 
-	//only for int and float operations
+	//implement order of operations, better type converting, null values
 	private object binaryCalculate(Variable v1, Variable v2, string op, out VariableType resultType)
 	{
 		if (!(v1.type == VariableType.FLOAT || v1.type == VariableType.INT) 

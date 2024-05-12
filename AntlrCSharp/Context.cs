@@ -73,25 +73,20 @@ namespace AntlrCSharp
 			previous = null;
         }
 
-        public void AddVariable(string name, VariableType type, object value)
+        public void AddVariable(string name, Variable var)
 		{
-			variables.Add(name, new Variable(type, value));
+			variables.Add(name, var);
 		}
 
-        //Tutaj logika sprawdzająca i konwertująca typy (float na int itp.)
-        //na razie tylko takie same typy przechodzą
-        public void UpdateVariable(string name, VariableType type, object value)
+        public void UpdateVariable(string name, Variable var)
 		{
-			if (variables.ContainsKey(name))
-			{
-				if (variables[name].type == type)
-					variables[name] = new Variable(type,value);
-				else
-					throw new LanguageError($"Types don't match when assigning to variable: {name}");
+			if (variables.ContainsKey(name)){
+					variables[name] = ConvertType(var, variables[name].type);
 			}
 			else if(previous != null) {
-				previous.UpdateVariable(name, type, value);
+				previous.UpdateVariable(name, var);
 			}
+			throw new LanguageError($"Cannot assign to not existant variable {name}.");
 		}
 
 		public Variable GetVariable(string name)
@@ -110,6 +105,19 @@ namespace AntlrCSharp
 			else if(previous!= null) 
 				return previous.GetType(name);
             throw new LanguageError($"No variable named {name} in context.");
+        }
+
+
+
+		public static Variable ConvertType(Variable value, VariableType convertTo)
+		{
+			if(value.type == convertTo) return value;
+			if(value.type == VariableType.INT && convertTo == VariableType.FLOAT)
+			{
+				value.value = Convert.ToSingle(value.value);
+				return value;
+			}
+            throw new LanguageError($"Type {value.type} cannot be converted to {convertTo}.");
         }
 	}
 }
