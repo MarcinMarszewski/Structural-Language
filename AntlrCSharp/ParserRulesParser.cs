@@ -50,16 +50,20 @@ public partial class ParserRulesParser : Parser {
 		RULE_ifStatement = 7, RULE_variableDeclaration = 8, RULE_variableDeclarationExpression = 9, 
 		RULE_type = 10, RULE_expressionStatement = 11, RULE_blockStatement = 12, 
 		RULE_whileStatement = 13, RULE_forStatement = 14, RULE_expression = 15, 
-		RULE_ternary = 16, RULE_binary = 17, RULE_primary = 18, RULE_call = 19, 
-		RULE_variableAssignment = 20, RULE_variableAccess = 21, RULE_grouping = 22, 
-		RULE_value = 23, RULE_unary = 24, RULE_binaryOp = 25, RULE_number = 26, 
-		RULE_true = 27, RULE_false = 28;
+		RULE_ternary = 16, RULE_binaryLogic = 17, RULE_binaryCompare = 18, RULE_binaryBitwise = 19, 
+		RULE_binaryAdditive = 20, RULE_binaryMultiplicative = 21, RULE_primary = 22, 
+		RULE_call = 23, RULE_variableAssignment = 24, RULE_variableAccess = 25, 
+		RULE_grouping = 26, RULE_value = 27, RULE_unary = 28, RULE_binaryLogicOp = 29, 
+		RULE_binaryCompareOp = 30, RULE_binaryBitwiseOp = 31, RULE_binaryMultiplicativeOp = 32, 
+		RULE_binaryAdditiveOp = 33, RULE_number = 34, RULE_true = 35, RULE_false = 36;
 	public static readonly string[] ruleNames = {
 		"program", "function", "parameter", "statement", "returnStatement", "breakStatement", 
 		"continueStatement", "ifStatement", "variableDeclaration", "variableDeclarationExpression", 
 		"type", "expressionStatement", "blockStatement", "whileStatement", "forStatement", 
-		"expression", "ternary", "binary", "primary", "call", "variableAssignment", 
-		"variableAccess", "grouping", "value", "unary", "binaryOp", "number", 
+		"expression", "ternary", "binaryLogic", "binaryCompare", "binaryBitwise", 
+		"binaryAdditive", "binaryMultiplicative", "primary", "call", "variableAssignment", 
+		"variableAccess", "grouping", "value", "unary", "binaryLogicOp", "binaryCompareOp", 
+		"binaryBitwiseOp", "binaryMultiplicativeOp", "binaryAdditiveOp", "number", 
 		"true", "false"
 	};
 
@@ -149,17 +153,17 @@ public partial class ParserRulesParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 59;
+			State = 75;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			do {
 				{
 				{
-				State = 58;
+				State = 74;
 				function();
 				}
 				}
-				State = 61;
+				State = 77;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			} while ( _la==INT || _la==FLOAT );
@@ -232,57 +236,57 @@ public partial class ParserRulesParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 63;
+			State = 79;
 			type();
-			State = 64;
+			State = 80;
 			Match(IDENTIFIER);
-			State = 65;
+			State = 81;
 			Match(LROUNDBRACKET);
-			State = 74;
+			State = 90;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			if (_la==INT || _la==FLOAT) {
 				{
-				State = 66;
+				State = 82;
 				parameter();
-				State = 71;
+				State = 87;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 				while (_la==COMMA) {
 					{
 					{
-					State = 67;
+					State = 83;
 					Match(COMMA);
-					State = 68;
+					State = 84;
 					parameter();
 					}
 					}
-					State = 73;
+					State = 89;
 					ErrorHandler.Sync(this);
 					_la = TokenStream.LA(1);
 				}
 				}
 			}
 
-			State = 76;
+			State = 92;
 			Match(RROUNDBRACKET);
-			State = 77;
+			State = 93;
 			Match(LCURLYBRACKET);
-			State = 81;
+			State = 97;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 13194158481390L) != 0)) {
 				{
 				{
-				State = 78;
+				State = 94;
 				statement();
 				}
 				}
-				State = 83;
+				State = 99;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
-			State = 84;
+			State = 100;
 			Match(RCURLYBRACKET);
 			}
 		}
@@ -332,9 +336,9 @@ public partial class ParserRulesParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 86;
+			State = 102;
 			type();
-			State = 87;
+			State = 103;
 			Match(IDENTIFIER);
 			}
 		}
@@ -405,7 +409,7 @@ public partial class ParserRulesParser : Parser {
 		StatementContext _localctx = new StatementContext(Context, State);
 		EnterRule(_localctx, 6, RULE_statement);
 		try {
-			State = 98;
+			State = 114;
 			ErrorHandler.Sync(this);
 			switch (TokenStream.LA(1)) {
 			case TRUE:
@@ -417,7 +421,7 @@ public partial class ParserRulesParser : Parser {
 			case IDENTIFIER:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 89;
+				State = 105;
 				expressionStatement();
 				}
 				break;
@@ -425,56 +429,56 @@ public partial class ParserRulesParser : Parser {
 			case FLOAT:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 90;
+				State = 106;
 				variableDeclaration();
 				}
 				break;
 			case LCURLYBRACKET:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 91;
+				State = 107;
 				blockStatement();
 				}
 				break;
 			case WHILE:
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 92;
+				State = 108;
 				whileStatement();
 				}
 				break;
 			case FOR:
 				EnterOuterAlt(_localctx, 5);
 				{
-				State = 93;
+				State = 109;
 				forStatement();
 				}
 				break;
 			case BREAK:
 				EnterOuterAlt(_localctx, 6);
 				{
-				State = 94;
+				State = 110;
 				breakStatement();
 				}
 				break;
 			case CONTINUE:
 				EnterOuterAlt(_localctx, 7);
 				{
-				State = 95;
+				State = 111;
 				continueStatement();
 				}
 				break;
 			case RETURN:
 				EnterOuterAlt(_localctx, 8);
 				{
-				State = 96;
+				State = 112;
 				returnStatement();
 				}
 				break;
 			case IF:
 				EnterOuterAlt(_localctx, 9);
 				{
-				State = 97;
+				State = 113;
 				ifStatement();
 				}
 				break;
@@ -530,19 +534,19 @@ public partial class ParserRulesParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 100;
+			State = 116;
 			Match(RETURN);
-			State = 102;
+			State = 118;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 13194158414848L) != 0)) {
 				{
-				State = 101;
+				State = 117;
 				expression();
 				}
 			}
 
-			State = 104;
+			State = 120;
 			Match(SEMICOLON);
 			}
 		}
@@ -590,9 +594,9 @@ public partial class ParserRulesParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 106;
+			State = 122;
 			Match(BREAK);
-			State = 107;
+			State = 123;
 			Match(SEMICOLON);
 			}
 		}
@@ -640,9 +644,9 @@ public partial class ParserRulesParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 109;
+			State = 125;
 			Match(CONTINUE);
-			State = 110;
+			State = 126;
 			Match(SEMICOLON);
 			}
 		}
@@ -700,20 +704,20 @@ public partial class ParserRulesParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 112;
+			State = 128;
 			Match(IF);
-			State = 113;
+			State = 129;
 			grouping();
-			State = 114;
+			State = 130;
 			blockStatement();
-			State = 117;
+			State = 133;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			if (_la==ELSE) {
 				{
-				State = 115;
+				State = 131;
 				Match(ELSE);
-				State = 116;
+				State = 132;
 				blockStatement();
 				}
 			}
@@ -766,9 +770,9 @@ public partial class ParserRulesParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 119;
+			State = 135;
 			variableDeclarationExpression();
-			State = 120;
+			State = 136;
 			Match(SEMICOLON);
 			}
 		}
@@ -823,18 +827,18 @@ public partial class ParserRulesParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 122;
+			State = 138;
 			type();
-			State = 123;
+			State = 139;
 			Match(IDENTIFIER);
-			State = 126;
+			State = 142;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			if (_la==EQUAL) {
 				{
-				State = 124;
+				State = 140;
 				Match(EQUAL);
-				State = 125;
+				State = 141;
 				expression();
 				}
 			}
@@ -894,7 +898,7 @@ public partial class ParserRulesParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 128;
+			State = 144;
 			_la = TokenStream.LA(1);
 			if ( !(_la==INT || _la==FLOAT) ) {
 			ErrorHandler.RecoverInline(this);
@@ -903,19 +907,19 @@ public partial class ParserRulesParser : Parser {
 				ErrorHandler.ReportMatch(this);
 			    Consume();
 			}
-			State = 133;
+			State = 149;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while (_la==LSQUAREBRACKET) {
 				{
 				{
-				State = 129;
+				State = 145;
 				Match(LSQUAREBRACKET);
-				State = 130;
+				State = 146;
 				Match(RSQUAREBRACKET);
 				}
 				}
-				State = 135;
+				State = 151;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
@@ -967,9 +971,9 @@ public partial class ParserRulesParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 136;
+			State = 152;
 			expression();
-			State = 137;
+			State = 153;
 			Match(SEMICOLON);
 			}
 		}
@@ -1024,23 +1028,23 @@ public partial class ParserRulesParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 139;
+			State = 155;
 			Match(LCURLYBRACKET);
-			State = 143;
+			State = 159;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 13194158481390L) != 0)) {
 				{
 				{
-				State = 140;
+				State = 156;
 				statement();
 				}
 				}
-				State = 145;
+				State = 161;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
-			State = 146;
+			State = 162;
 			Match(RCURLYBRACKET);
 			}
 		}
@@ -1093,11 +1097,11 @@ public partial class ParserRulesParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 148;
+			State = 164;
 			Match(WHILE);
-			State = 149;
+			State = 165;
 			grouping();
-			State = 150;
+			State = 166;
 			blockStatement();
 			}
 		}
@@ -1162,23 +1166,23 @@ public partial class ParserRulesParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 152;
+			State = 168;
 			Match(FOR);
-			State = 153;
+			State = 169;
 			Match(LROUNDBRACKET);
-			State = 154;
+			State = 170;
 			variableDeclarationExpression();
-			State = 155;
+			State = 171;
 			Match(SEMICOLON);
-			State = 156;
+			State = 172;
 			expression();
-			State = 157;
+			State = 173;
 			Match(SEMICOLON);
-			State = 158;
+			State = 174;
 			expression();
-			State = 159;
+			State = 175;
 			Match(RROUNDBRACKET);
-			State = 160;
+			State = 176;
 			blockStatement();
 			}
 		}
@@ -1227,7 +1231,7 @@ public partial class ParserRulesParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 162;
+			State = 178;
 			ternary();
 			}
 		}
@@ -1243,8 +1247,8 @@ public partial class ParserRulesParser : Parser {
 	}
 
 	public partial class TernaryContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public BinaryContext binary() {
-			return GetRuleContext<BinaryContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public BinaryLogicContext binaryLogic() {
+			return GetRuleContext<BinaryLogicContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode QUESTIONMARK() { return GetToken(ParserRulesParser.QUESTIONMARK, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext[] expression() {
@@ -1284,20 +1288,20 @@ public partial class ParserRulesParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 164;
-			binary();
-			State = 170;
+			State = 180;
+			binaryLogic();
+			State = 186;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,10,Context) ) {
 			case 1:
 				{
-				State = 165;
+				State = 181;
 				Match(QUESTIONMARK);
-				State = 166;
+				State = 182;
 				expression();
-				State = 167;
+				State = 183;
 				Match(COLON);
-				State = 168;
+				State = 184;
 				expression();
 				}
 				break;
@@ -1315,57 +1319,325 @@ public partial class ParserRulesParser : Parser {
 		return _localctx;
 	}
 
-	public partial class BinaryContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public PrimaryContext primary() {
-			return GetRuleContext<PrimaryContext>(0);
+	public partial class BinaryLogicContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public BinaryCompareContext binaryCompare() {
+			return GetRuleContext<BinaryCompareContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public BinaryOpContext binaryOp() {
-			return GetRuleContext<BinaryOpContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public BinaryLogicOpContext binaryLogicOp() {
+			return GetRuleContext<BinaryLogicOpContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public BinaryContext binary() {
-			return GetRuleContext<BinaryContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public BinaryLogicContext binaryLogic() {
+			return GetRuleContext<BinaryLogicContext>(0);
 		}
-		public BinaryContext(ParserRuleContext parent, int invokingState)
+		public BinaryLogicContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_binary; } }
+		public override int RuleIndex { get { return RULE_binaryLogic; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IParserRulesListener typedListener = listener as IParserRulesListener;
-			if (typedListener != null) typedListener.EnterBinary(this);
+			if (typedListener != null) typedListener.EnterBinaryLogic(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IParserRulesListener typedListener = listener as IParserRulesListener;
-			if (typedListener != null) typedListener.ExitBinary(this);
+			if (typedListener != null) typedListener.ExitBinaryLogic(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IParserRulesVisitor<TResult> typedVisitor = visitor as IParserRulesVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitBinary(this);
+			if (typedVisitor != null) return typedVisitor.VisitBinaryLogic(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public BinaryContext binary() {
-		BinaryContext _localctx = new BinaryContext(Context, State);
-		EnterRule(_localctx, 34, RULE_binary);
+	public BinaryLogicContext binaryLogic() {
+		BinaryLogicContext _localctx = new BinaryLogicContext(Context, State);
+		EnterRule(_localctx, 34, RULE_binaryLogic);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 172;
-			primary();
-			State = 176;
+			State = 188;
+			binaryCompare();
+			State = 192;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,11,Context) ) {
 			case 1:
 				{
-				State = 173;
-				binaryOp();
-				State = 174;
-				binary();
+				State = 189;
+				binaryLogicOp();
+				State = 190;
+				binaryLogic();
+				}
+				break;
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class BinaryCompareContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public BinaryBitwiseContext binaryBitwise() {
+			return GetRuleContext<BinaryBitwiseContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public BinaryCompareOpContext binaryCompareOp() {
+			return GetRuleContext<BinaryCompareOpContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public BinaryCompareContext binaryCompare() {
+			return GetRuleContext<BinaryCompareContext>(0);
+		}
+		public BinaryCompareContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_binaryCompare; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IParserRulesListener typedListener = listener as IParserRulesListener;
+			if (typedListener != null) typedListener.EnterBinaryCompare(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IParserRulesListener typedListener = listener as IParserRulesListener;
+			if (typedListener != null) typedListener.ExitBinaryCompare(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IParserRulesVisitor<TResult> typedVisitor = visitor as IParserRulesVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitBinaryCompare(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public BinaryCompareContext binaryCompare() {
+		BinaryCompareContext _localctx = new BinaryCompareContext(Context, State);
+		EnterRule(_localctx, 36, RULE_binaryCompare);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 194;
+			binaryBitwise();
+			State = 198;
+			ErrorHandler.Sync(this);
+			switch ( Interpreter.AdaptivePredict(TokenStream,12,Context) ) {
+			case 1:
+				{
+				State = 195;
+				binaryCompareOp();
+				State = 196;
+				binaryCompare();
+				}
+				break;
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class BinaryBitwiseContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public BinaryAdditiveContext binaryAdditive() {
+			return GetRuleContext<BinaryAdditiveContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public BinaryBitwiseOpContext binaryBitwiseOp() {
+			return GetRuleContext<BinaryBitwiseOpContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public BinaryBitwiseContext binaryBitwise() {
+			return GetRuleContext<BinaryBitwiseContext>(0);
+		}
+		public BinaryBitwiseContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_binaryBitwise; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IParserRulesListener typedListener = listener as IParserRulesListener;
+			if (typedListener != null) typedListener.EnterBinaryBitwise(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IParserRulesListener typedListener = listener as IParserRulesListener;
+			if (typedListener != null) typedListener.ExitBinaryBitwise(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IParserRulesVisitor<TResult> typedVisitor = visitor as IParserRulesVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitBinaryBitwise(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public BinaryBitwiseContext binaryBitwise() {
+		BinaryBitwiseContext _localctx = new BinaryBitwiseContext(Context, State);
+		EnterRule(_localctx, 38, RULE_binaryBitwise);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 200;
+			binaryAdditive();
+			State = 204;
+			ErrorHandler.Sync(this);
+			switch ( Interpreter.AdaptivePredict(TokenStream,13,Context) ) {
+			case 1:
+				{
+				State = 201;
+				binaryBitwiseOp();
+				State = 202;
+				binaryBitwise();
+				}
+				break;
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class BinaryAdditiveContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public BinaryMultiplicativeContext binaryMultiplicative() {
+			return GetRuleContext<BinaryMultiplicativeContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public BinaryAdditiveOpContext binaryAdditiveOp() {
+			return GetRuleContext<BinaryAdditiveOpContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public BinaryAdditiveContext binaryAdditive() {
+			return GetRuleContext<BinaryAdditiveContext>(0);
+		}
+		public BinaryAdditiveContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_binaryAdditive; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IParserRulesListener typedListener = listener as IParserRulesListener;
+			if (typedListener != null) typedListener.EnterBinaryAdditive(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IParserRulesListener typedListener = listener as IParserRulesListener;
+			if (typedListener != null) typedListener.ExitBinaryAdditive(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IParserRulesVisitor<TResult> typedVisitor = visitor as IParserRulesVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitBinaryAdditive(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public BinaryAdditiveContext binaryAdditive() {
+		BinaryAdditiveContext _localctx = new BinaryAdditiveContext(Context, State);
+		EnterRule(_localctx, 40, RULE_binaryAdditive);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 206;
+			binaryMultiplicative();
+			State = 210;
+			ErrorHandler.Sync(this);
+			switch ( Interpreter.AdaptivePredict(TokenStream,14,Context) ) {
+			case 1:
+				{
+				State = 207;
+				binaryAdditiveOp();
+				State = 208;
+				binaryAdditive();
+				}
+				break;
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class BinaryMultiplicativeContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public PrimaryContext primary() {
+			return GetRuleContext<PrimaryContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public BinaryMultiplicativeOpContext binaryMultiplicativeOp() {
+			return GetRuleContext<BinaryMultiplicativeOpContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public BinaryMultiplicativeContext binaryMultiplicative() {
+			return GetRuleContext<BinaryMultiplicativeContext>(0);
+		}
+		public BinaryMultiplicativeContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_binaryMultiplicative; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IParserRulesListener typedListener = listener as IParserRulesListener;
+			if (typedListener != null) typedListener.EnterBinaryMultiplicative(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IParserRulesListener typedListener = listener as IParserRulesListener;
+			if (typedListener != null) typedListener.ExitBinaryMultiplicative(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IParserRulesVisitor<TResult> typedVisitor = visitor as IParserRulesVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitBinaryMultiplicative(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public BinaryMultiplicativeContext binaryMultiplicative() {
+		BinaryMultiplicativeContext _localctx = new BinaryMultiplicativeContext(Context, State);
+		EnterRule(_localctx, 42, RULE_binaryMultiplicative);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 212;
+			primary();
+			State = 216;
+			ErrorHandler.Sync(this);
+			switch ( Interpreter.AdaptivePredict(TokenStream,15,Context) ) {
+			case 1:
+				{
+				State = 213;
+				binaryMultiplicativeOp();
+				State = 214;
+				binaryMultiplicative();
 				}
 				break;
 			}
@@ -1427,50 +1699,50 @@ public partial class ParserRulesParser : Parser {
 	[RuleVersion(0)]
 	public PrimaryContext primary() {
 		PrimaryContext _localctx = new PrimaryContext(Context, State);
-		EnterRule(_localctx, 36, RULE_primary);
+		EnterRule(_localctx, 44, RULE_primary);
 		try {
-			State = 184;
+			State = 224;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,12,Context) ) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,16,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 178;
+				State = 218;
 				value();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 179;
+				State = 219;
 				unary();
 				}
 				break;
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 180;
+				State = 220;
 				grouping();
 				}
 				break;
 			case 4:
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 181;
+				State = 221;
 				variableAccess();
 				}
 				break;
 			case 5:
 				EnterOuterAlt(_localctx, 5);
 				{
-				State = 182;
+				State = 222;
 				variableAssignment();
 				}
 				break;
 			case 6:
 				EnterOuterAlt(_localctx, 6);
 				{
-				State = 183;
+				State = 223;
 				call();
 				}
 				break;
@@ -1527,42 +1799,42 @@ public partial class ParserRulesParser : Parser {
 	[RuleVersion(0)]
 	public CallContext call() {
 		CallContext _localctx = new CallContext(Context, State);
-		EnterRule(_localctx, 38, RULE_call);
+		EnterRule(_localctx, 46, RULE_call);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 186;
+			State = 226;
 			Match(IDENTIFIER);
-			State = 187;
+			State = 227;
 			Match(LROUNDBRACKET);
-			State = 196;
+			State = 236;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 13194158414848L) != 0)) {
 				{
-				State = 188;
+				State = 228;
 				expression();
-				State = 193;
+				State = 233;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 				while (_la==COMMA) {
 					{
 					{
-					State = 189;
+					State = 229;
 					Match(COMMA);
-					State = 190;
+					State = 230;
 					expression();
 					}
 					}
-					State = 195;
+					State = 235;
 					ErrorHandler.Sync(this);
 					_la = TokenStream.LA(1);
 				}
 				}
 			}
 
-			State = 198;
+			State = 238;
 			Match(RROUNDBRACKET);
 			}
 		}
@@ -1609,15 +1881,15 @@ public partial class ParserRulesParser : Parser {
 	[RuleVersion(0)]
 	public VariableAssignmentContext variableAssignment() {
 		VariableAssignmentContext _localctx = new VariableAssignmentContext(Context, State);
-		EnterRule(_localctx, 40, RULE_variableAssignment);
+		EnterRule(_localctx, 48, RULE_variableAssignment);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 200;
+			State = 240;
 			Match(IDENTIFIER);
-			State = 201;
+			State = 241;
 			Match(EQUAL);
-			State = 202;
+			State = 242;
 			expression();
 			}
 		}
@@ -1660,11 +1932,11 @@ public partial class ParserRulesParser : Parser {
 	[RuleVersion(0)]
 	public VariableAccessContext variableAccess() {
 		VariableAccessContext _localctx = new VariableAccessContext(Context, State);
-		EnterRule(_localctx, 42, RULE_variableAccess);
+		EnterRule(_localctx, 50, RULE_variableAccess);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 204;
+			State = 244;
 			Match(IDENTIFIER);
 			}
 		}
@@ -1711,15 +1983,15 @@ public partial class ParserRulesParser : Parser {
 	[RuleVersion(0)]
 	public GroupingContext grouping() {
 		GroupingContext _localctx = new GroupingContext(Context, State);
-		EnterRule(_localctx, 44, RULE_grouping);
+		EnterRule(_localctx, 52, RULE_grouping);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 206;
+			State = 246;
 			Match(LROUNDBRACKET);
-			State = 207;
+			State = 247;
 			expression();
-			State = 208;
+			State = 248;
 			Match(RROUNDBRACKET);
 			}
 		}
@@ -1770,29 +2042,29 @@ public partial class ParserRulesParser : Parser {
 	[RuleVersion(0)]
 	public ValueContext value() {
 		ValueContext _localctx = new ValueContext(Context, State);
-		EnterRule(_localctx, 46, RULE_value);
+		EnterRule(_localctx, 54, RULE_value);
 		try {
-			State = 213;
+			State = 253;
 			ErrorHandler.Sync(this);
 			switch (TokenStream.LA(1)) {
 			case NUMBER:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 210;
+				State = 250;
 				number();
 				}
 				break;
 			case TRUE:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 211;
+				State = 251;
 				@true();
 				}
 				break;
 			case FALSE:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 212;
+				State = 252;
 				@false();
 				}
 				break;
@@ -1843,12 +2115,12 @@ public partial class ParserRulesParser : Parser {
 	[RuleVersion(0)]
 	public UnaryContext unary() {
 		UnaryContext _localctx = new UnaryContext(Context, State);
-		EnterRule(_localctx, 48, RULE_unary);
+		EnterRule(_localctx, 56, RULE_unary);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 215;
+			State = 255;
 			_la = TokenStream.LA(1);
 			if ( !(_la==EXCLAMATION || _la==MINUS) ) {
 			ErrorHandler.RecoverInline(this);
@@ -1857,7 +2129,7 @@ public partial class ParserRulesParser : Parser {
 				ErrorHandler.ReportMatch(this);
 			    Consume();
 			}
-			State = 216;
+			State = 256;
 			primary();
 			}
 		}
@@ -1872,59 +2144,275 @@ public partial class ParserRulesParser : Parser {
 		return _localctx;
 	}
 
-	public partial class BinaryOpContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PLUS() { return GetToken(ParserRulesParser.PLUS, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MINUS() { return GetToken(ParserRulesParser.MINUS, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode AND() { return GetToken(ParserRulesParser.AND, 0); }
+	public partial class BinaryLogicOpContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ANDAND() { return GetToken(ParserRulesParser.ANDAND, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CARROT() { return GetToken(ParserRulesParser.CARROT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OROR() { return GetToken(ParserRulesParser.OROR, 0); }
+		public BinaryLogicOpContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_binaryLogicOp; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IParserRulesListener typedListener = listener as IParserRulesListener;
+			if (typedListener != null) typedListener.EnterBinaryLogicOp(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IParserRulesListener typedListener = listener as IParserRulesListener;
+			if (typedListener != null) typedListener.ExitBinaryLogicOp(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IParserRulesVisitor<TResult> typedVisitor = visitor as IParserRulesVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitBinaryLogicOp(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public BinaryLogicOpContext binaryLogicOp() {
+		BinaryLogicOpContext _localctx = new BinaryLogicOpContext(Context, State);
+		EnterRule(_localctx, 58, RULE_binaryLogicOp);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 258;
+			_la = TokenStream.LA(1);
+			if ( !(_la==ANDAND || _la==OROR) ) {
+			ErrorHandler.RecoverInline(this);
+			}
+			else {
+				ErrorHandler.ReportMatch(this);
+			    Consume();
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class BinaryCompareOpContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUALEQUAL() { return GetToken(ParserRulesParser.EQUALEQUAL, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EXCLAMATIONEQUAL() { return GetToken(ParserRulesParser.EXCLAMATIONEQUAL, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode GREATER() { return GetToken(ParserRulesParser.GREATER, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode GREATEREQUAL() { return GetToken(ParserRulesParser.GREATEREQUAL, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LESS() { return GetToken(ParserRulesParser.LESS, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LESSEQUAL() { return GetToken(ParserRulesParser.LESSEQUAL, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OR() { return GetToken(ParserRulesParser.OR, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OROR() { return GetToken(ParserRulesParser.OROR, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PERCENT() { return GetToken(ParserRulesParser.PERCENT, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RSLASH() { return GetToken(ParserRulesParser.RSLASH, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SHIFTLEFT() { return GetToken(ParserRulesParser.SHIFTLEFT, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SHIFTRIGHT() { return GetToken(ParserRulesParser.SHIFTRIGHT, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STAR() { return GetToken(ParserRulesParser.STAR, 0); }
-		public BinaryOpContext(ParserRuleContext parent, int invokingState)
+		public BinaryCompareOpContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_binaryOp; } }
+		public override int RuleIndex { get { return RULE_binaryCompareOp; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IParserRulesListener typedListener = listener as IParserRulesListener;
-			if (typedListener != null) typedListener.EnterBinaryOp(this);
+			if (typedListener != null) typedListener.EnterBinaryCompareOp(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IParserRulesListener typedListener = listener as IParserRulesListener;
-			if (typedListener != null) typedListener.ExitBinaryOp(this);
+			if (typedListener != null) typedListener.ExitBinaryCompareOp(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IParserRulesVisitor<TResult> typedVisitor = visitor as IParserRulesVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitBinaryOp(this);
+			if (typedVisitor != null) return typedVisitor.VisitBinaryCompareOp(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public BinaryOpContext binaryOp() {
-		BinaryOpContext _localctx = new BinaryOpContext(Context, State);
-		EnterRule(_localctx, 50, RULE_binaryOp);
+	public BinaryCompareOpContext binaryCompareOp() {
+		BinaryCompareOpContext _localctx = new BinaryCompareOpContext(Context, State);
+		EnterRule(_localctx, 60, RULE_binaryCompareOp);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 218;
+			State = 260;
 			_la = TokenStream.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 2199014866944L) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 2164663517184L) != 0)) ) {
+			ErrorHandler.RecoverInline(this);
+			}
+			else {
+				ErrorHandler.ReportMatch(this);
+			    Consume();
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class BinaryBitwiseOpContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode AND() { return GetToken(ParserRulesParser.AND, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CARROT() { return GetToken(ParserRulesParser.CARROT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OR() { return GetToken(ParserRulesParser.OR, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SHIFTLEFT() { return GetToken(ParserRulesParser.SHIFTLEFT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SHIFTRIGHT() { return GetToken(ParserRulesParser.SHIFTRIGHT, 0); }
+		public BinaryBitwiseOpContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_binaryBitwiseOp; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IParserRulesListener typedListener = listener as IParserRulesListener;
+			if (typedListener != null) typedListener.EnterBinaryBitwiseOp(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IParserRulesListener typedListener = listener as IParserRulesListener;
+			if (typedListener != null) typedListener.ExitBinaryBitwiseOp(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IParserRulesVisitor<TResult> typedVisitor = visitor as IParserRulesVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitBinaryBitwiseOp(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public BinaryBitwiseOpContext binaryBitwiseOp() {
+		BinaryBitwiseOpContext _localctx = new BinaryBitwiseOpContext(Context, State);
+		EnterRule(_localctx, 62, RULE_binaryBitwiseOp);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 262;
+			_la = TokenStream.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 7381975040L) != 0)) ) {
+			ErrorHandler.RecoverInline(this);
+			}
+			else {
+				ErrorHandler.ReportMatch(this);
+			    Consume();
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class BinaryMultiplicativeOpContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PERCENT() { return GetToken(ParserRulesParser.PERCENT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RSLASH() { return GetToken(ParserRulesParser.RSLASH, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STAR() { return GetToken(ParserRulesParser.STAR, 0); }
+		public BinaryMultiplicativeOpContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_binaryMultiplicativeOp; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IParserRulesListener typedListener = listener as IParserRulesListener;
+			if (typedListener != null) typedListener.EnterBinaryMultiplicativeOp(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IParserRulesListener typedListener = listener as IParserRulesListener;
+			if (typedListener != null) typedListener.ExitBinaryMultiplicativeOp(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IParserRulesVisitor<TResult> typedVisitor = visitor as IParserRulesVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitBinaryMultiplicativeOp(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public BinaryMultiplicativeOpContext binaryMultiplicativeOp() {
+		BinaryMultiplicativeOpContext _localctx = new BinaryMultiplicativeOpContext(Context, State);
+		EnterRule(_localctx, 64, RULE_binaryMultiplicativeOp);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 264;
+			_la = TokenStream.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 1174405120L) != 0)) ) {
+			ErrorHandler.RecoverInline(this);
+			}
+			else {
+				ErrorHandler.ReportMatch(this);
+			    Consume();
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class BinaryAdditiveOpContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PLUS() { return GetToken(ParserRulesParser.PLUS, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MINUS() { return GetToken(ParserRulesParser.MINUS, 0); }
+		public BinaryAdditiveOpContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_binaryAdditiveOp; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IParserRulesListener typedListener = listener as IParserRulesListener;
+			if (typedListener != null) typedListener.EnterBinaryAdditiveOp(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IParserRulesListener typedListener = listener as IParserRulesListener;
+			if (typedListener != null) typedListener.ExitBinaryAdditiveOp(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IParserRulesVisitor<TResult> typedVisitor = visitor as IParserRulesVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitBinaryAdditiveOp(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public BinaryAdditiveOpContext binaryAdditiveOp() {
+		BinaryAdditiveOpContext _localctx = new BinaryAdditiveOpContext(Context, State);
+		EnterRule(_localctx, 66, RULE_binaryAdditiveOp);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 266;
+			_la = TokenStream.LA(1);
+			if ( !(_la==PLUS || _la==MINUS) ) {
 			ErrorHandler.RecoverInline(this);
 			}
 			else {
@@ -1972,11 +2460,11 @@ public partial class ParserRulesParser : Parser {
 	[RuleVersion(0)]
 	public NumberContext number() {
 		NumberContext _localctx = new NumberContext(Context, State);
-		EnterRule(_localctx, 52, RULE_number);
+		EnterRule(_localctx, 68, RULE_number);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 220;
+			State = 268;
 			Match(NUMBER);
 			}
 		}
@@ -2019,11 +2507,11 @@ public partial class ParserRulesParser : Parser {
 	[RuleVersion(0)]
 	public TrueContext @true() {
 		TrueContext _localctx = new TrueContext(Context, State);
-		EnterRule(_localctx, 54, RULE_true);
+		EnterRule(_localctx, 70, RULE_true);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 222;
+			State = 270;
 			Match(TRUE);
 			}
 		}
@@ -2066,11 +2554,11 @@ public partial class ParserRulesParser : Parser {
 	[RuleVersion(0)]
 	public FalseContext @false() {
 		FalseContext _localctx = new FalseContext(Context, State);
-		EnterRule(_localctx, 56, RULE_false);
+		EnterRule(_localctx, 72, RULE_false);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 224;
+			State = 272;
 			Match(FALSE);
 			}
 		}
@@ -2086,75 +2574,91 @@ public partial class ParserRulesParser : Parser {
 	}
 
 	private static int[] _serializedATN = {
-		4,1,44,227,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,
+		4,1,44,275,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,
 		7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,2,14,7,14,
 		2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,7,20,2,21,7,21,
 		2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,26,2,27,7,27,2,28,7,28,
-		1,0,4,0,60,8,0,11,0,12,0,61,1,1,1,1,1,1,1,1,1,1,1,1,5,1,70,8,1,10,1,12,
-		1,73,9,1,3,1,75,8,1,1,1,1,1,1,1,5,1,80,8,1,10,1,12,1,83,9,1,1,1,1,1,1,
-		2,1,2,1,2,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,3,3,99,8,3,1,4,1,4,3,4,103,
-		8,4,1,4,1,4,1,5,1,5,1,5,1,6,1,6,1,6,1,7,1,7,1,7,1,7,1,7,3,7,118,8,7,1,
-		8,1,8,1,8,1,9,1,9,1,9,1,9,3,9,127,8,9,1,10,1,10,1,10,5,10,132,8,10,10,
-		10,12,10,135,9,10,1,11,1,11,1,11,1,12,1,12,5,12,142,8,12,10,12,12,12,145,
-		9,12,1,12,1,12,1,13,1,13,1,13,1,13,1,14,1,14,1,14,1,14,1,14,1,14,1,14,
-		1,14,1,14,1,14,1,15,1,15,1,16,1,16,1,16,1,16,1,16,1,16,3,16,171,8,16,1,
-		17,1,17,1,17,1,17,3,17,177,8,17,1,18,1,18,1,18,1,18,1,18,1,18,3,18,185,
-		8,18,1,19,1,19,1,19,1,19,1,19,5,19,192,8,19,10,19,12,19,195,9,19,3,19,
-		197,8,19,1,19,1,19,1,20,1,20,1,20,1,20,1,21,1,21,1,22,1,22,1,22,1,22,1,
-		23,1,23,1,23,3,23,214,8,23,1,24,1,24,1,24,1,25,1,25,1,26,1,26,1,27,1,27,
-		1,28,1,28,1,28,0,0,29,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,
-		36,38,40,42,44,46,48,50,52,54,56,0,3,1,0,8,9,2,0,21,21,24,24,1,0,23,40,
-		225,0,59,1,0,0,0,2,63,1,0,0,0,4,86,1,0,0,0,6,98,1,0,0,0,8,100,1,0,0,0,
-		10,106,1,0,0,0,12,109,1,0,0,0,14,112,1,0,0,0,16,119,1,0,0,0,18,122,1,0,
-		0,0,20,128,1,0,0,0,22,136,1,0,0,0,24,139,1,0,0,0,26,148,1,0,0,0,28,152,
-		1,0,0,0,30,162,1,0,0,0,32,164,1,0,0,0,34,172,1,0,0,0,36,184,1,0,0,0,38,
-		186,1,0,0,0,40,200,1,0,0,0,42,204,1,0,0,0,44,206,1,0,0,0,46,213,1,0,0,
-		0,48,215,1,0,0,0,50,218,1,0,0,0,52,220,1,0,0,0,54,222,1,0,0,0,56,224,1,
-		0,0,0,58,60,3,2,1,0,59,58,1,0,0,0,60,61,1,0,0,0,61,59,1,0,0,0,61,62,1,
-		0,0,0,62,1,1,0,0,0,63,64,3,20,10,0,64,65,5,43,0,0,65,74,5,12,0,0,66,71,
-		3,4,2,0,67,68,5,18,0,0,68,70,3,4,2,0,69,67,1,0,0,0,70,73,1,0,0,0,71,69,
-		1,0,0,0,71,72,1,0,0,0,72,75,1,0,0,0,73,71,1,0,0,0,74,66,1,0,0,0,74,75,
-		1,0,0,0,75,76,1,0,0,0,76,77,5,13,0,0,77,81,5,16,0,0,78,80,3,6,3,0,79,78,
-		1,0,0,0,80,83,1,0,0,0,81,79,1,0,0,0,81,82,1,0,0,0,82,84,1,0,0,0,83,81,
-		1,0,0,0,84,85,5,17,0,0,85,3,1,0,0,0,86,87,3,20,10,0,87,88,5,43,0,0,88,
-		5,1,0,0,0,89,99,3,22,11,0,90,99,3,16,8,0,91,99,3,24,12,0,92,99,3,26,13,
-		0,93,99,3,28,14,0,94,99,3,10,5,0,95,99,3,12,6,0,96,99,3,8,4,0,97,99,3,
-		14,7,0,98,89,1,0,0,0,98,90,1,0,0,0,98,91,1,0,0,0,98,92,1,0,0,0,98,93,1,
-		0,0,0,98,94,1,0,0,0,98,95,1,0,0,0,98,96,1,0,0,0,98,97,1,0,0,0,99,7,1,0,
-		0,0,100,102,5,7,0,0,101,103,3,30,15,0,102,101,1,0,0,0,102,103,1,0,0,0,
-		103,104,1,0,0,0,104,105,5,22,0,0,105,9,1,0,0,0,106,107,5,5,0,0,107,108,
-		5,22,0,0,108,11,1,0,0,0,109,110,5,6,0,0,110,111,5,22,0,0,111,13,1,0,0,
-		0,112,113,5,3,0,0,113,114,3,44,22,0,114,117,3,24,12,0,115,116,5,4,0,0,
-		116,118,3,24,12,0,117,115,1,0,0,0,117,118,1,0,0,0,118,15,1,0,0,0,119,120,
-		3,18,9,0,120,121,5,22,0,0,121,17,1,0,0,0,122,123,3,20,10,0,123,126,5,43,
-		0,0,124,125,5,41,0,0,125,127,3,30,15,0,126,124,1,0,0,0,126,127,1,0,0,0,
-		127,19,1,0,0,0,128,133,7,0,0,0,129,130,5,14,0,0,130,132,5,15,0,0,131,129,
-		1,0,0,0,132,135,1,0,0,0,133,131,1,0,0,0,133,134,1,0,0,0,134,21,1,0,0,0,
-		135,133,1,0,0,0,136,137,3,30,15,0,137,138,5,22,0,0,138,23,1,0,0,0,139,
-		143,5,16,0,0,140,142,3,6,3,0,141,140,1,0,0,0,142,145,1,0,0,0,143,141,1,
-		0,0,0,143,144,1,0,0,0,144,146,1,0,0,0,145,143,1,0,0,0,146,147,5,17,0,0,
-		147,25,1,0,0,0,148,149,5,2,0,0,149,150,3,44,22,0,150,151,3,24,12,0,151,
-		27,1,0,0,0,152,153,5,1,0,0,153,154,5,12,0,0,154,155,3,18,9,0,155,156,5,
-		22,0,0,156,157,3,30,15,0,157,158,5,22,0,0,158,159,3,30,15,0,159,160,5,
-		13,0,0,160,161,3,24,12,0,161,29,1,0,0,0,162,163,3,32,16,0,163,31,1,0,0,
-		0,164,170,3,34,17,0,165,166,5,19,0,0,166,167,3,30,15,0,167,168,5,20,0,
-		0,168,169,3,30,15,0,169,171,1,0,0,0,170,165,1,0,0,0,170,171,1,0,0,0,171,
-		33,1,0,0,0,172,176,3,36,18,0,173,174,3,50,25,0,174,175,3,34,17,0,175,177,
-		1,0,0,0,176,173,1,0,0,0,176,177,1,0,0,0,177,35,1,0,0,0,178,185,3,46,23,
-		0,179,185,3,48,24,0,180,185,3,44,22,0,181,185,3,42,21,0,182,185,3,40,20,
-		0,183,185,3,38,19,0,184,178,1,0,0,0,184,179,1,0,0,0,184,180,1,0,0,0,184,
-		181,1,0,0,0,184,182,1,0,0,0,184,183,1,0,0,0,185,37,1,0,0,0,186,187,5,43,
-		0,0,187,196,5,12,0,0,188,193,3,30,15,0,189,190,5,18,0,0,190,192,3,30,15,
-		0,191,189,1,0,0,0,192,195,1,0,0,0,193,191,1,0,0,0,193,194,1,0,0,0,194,
-		197,1,0,0,0,195,193,1,0,0,0,196,188,1,0,0,0,196,197,1,0,0,0,197,198,1,
-		0,0,0,198,199,5,13,0,0,199,39,1,0,0,0,200,201,5,43,0,0,201,202,5,41,0,
-		0,202,203,3,30,15,0,203,41,1,0,0,0,204,205,5,43,0,0,205,43,1,0,0,0,206,
-		207,5,12,0,0,207,208,3,30,15,0,208,209,5,13,0,0,209,45,1,0,0,0,210,214,
-		3,52,26,0,211,214,3,54,27,0,212,214,3,56,28,0,213,210,1,0,0,0,213,211,
-		1,0,0,0,213,212,1,0,0,0,214,47,1,0,0,0,215,216,7,1,0,0,216,217,3,36,18,
-		0,217,49,1,0,0,0,218,219,7,2,0,0,219,51,1,0,0,0,220,221,5,42,0,0,221,53,
-		1,0,0,0,222,223,5,10,0,0,223,55,1,0,0,0,224,225,5,11,0,0,225,57,1,0,0,
-		0,16,61,71,74,81,98,102,117,126,133,143,170,176,184,193,196,213
+		2,29,7,29,2,30,7,30,2,31,7,31,2,32,7,32,2,33,7,33,2,34,7,34,2,35,7,35,
+		2,36,7,36,1,0,4,0,76,8,0,11,0,12,0,77,1,1,1,1,1,1,1,1,1,1,1,1,5,1,86,8,
+		1,10,1,12,1,89,9,1,3,1,91,8,1,1,1,1,1,1,1,5,1,96,8,1,10,1,12,1,99,9,1,
+		1,1,1,1,1,2,1,2,1,2,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,3,3,115,8,3,1,
+		4,1,4,3,4,119,8,4,1,4,1,4,1,5,1,5,1,5,1,6,1,6,1,6,1,7,1,7,1,7,1,7,1,7,
+		3,7,134,8,7,1,8,1,8,1,8,1,9,1,9,1,9,1,9,3,9,143,8,9,1,10,1,10,1,10,5,10,
+		148,8,10,10,10,12,10,151,9,10,1,11,1,11,1,11,1,12,1,12,5,12,158,8,12,10,
+		12,12,12,161,9,12,1,12,1,12,1,13,1,13,1,13,1,13,1,14,1,14,1,14,1,14,1,
+		14,1,14,1,14,1,14,1,14,1,14,1,15,1,15,1,16,1,16,1,16,1,16,1,16,1,16,3,
+		16,187,8,16,1,17,1,17,1,17,1,17,3,17,193,8,17,1,18,1,18,1,18,1,18,3,18,
+		199,8,18,1,19,1,19,1,19,1,19,3,19,205,8,19,1,20,1,20,1,20,1,20,3,20,211,
+		8,20,1,21,1,21,1,21,1,21,3,21,217,8,21,1,22,1,22,1,22,1,22,1,22,1,22,3,
+		22,225,8,22,1,23,1,23,1,23,1,23,1,23,5,23,232,8,23,10,23,12,23,235,9,23,
+		3,23,237,8,23,1,23,1,23,1,24,1,24,1,24,1,24,1,25,1,25,1,26,1,26,1,26,1,
+		26,1,27,1,27,1,27,3,27,254,8,27,1,28,1,28,1,28,1,29,1,29,1,30,1,30,1,31,
+		1,31,1,32,1,32,1,33,1,33,1,34,1,34,1,35,1,35,1,36,1,36,1,36,0,0,37,0,2,
+		4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,
+		54,56,58,60,62,64,66,68,70,72,0,7,1,0,8,9,2,0,21,21,24,24,1,0,33,34,1,
+		0,35,40,2,0,27,29,31,32,2,0,25,26,30,30,1,0,23,24,269,0,75,1,0,0,0,2,79,
+		1,0,0,0,4,102,1,0,0,0,6,114,1,0,0,0,8,116,1,0,0,0,10,122,1,0,0,0,12,125,
+		1,0,0,0,14,128,1,0,0,0,16,135,1,0,0,0,18,138,1,0,0,0,20,144,1,0,0,0,22,
+		152,1,0,0,0,24,155,1,0,0,0,26,164,1,0,0,0,28,168,1,0,0,0,30,178,1,0,0,
+		0,32,180,1,0,0,0,34,188,1,0,0,0,36,194,1,0,0,0,38,200,1,0,0,0,40,206,1,
+		0,0,0,42,212,1,0,0,0,44,224,1,0,0,0,46,226,1,0,0,0,48,240,1,0,0,0,50,244,
+		1,0,0,0,52,246,1,0,0,0,54,253,1,0,0,0,56,255,1,0,0,0,58,258,1,0,0,0,60,
+		260,1,0,0,0,62,262,1,0,0,0,64,264,1,0,0,0,66,266,1,0,0,0,68,268,1,0,0,
+		0,70,270,1,0,0,0,72,272,1,0,0,0,74,76,3,2,1,0,75,74,1,0,0,0,76,77,1,0,
+		0,0,77,75,1,0,0,0,77,78,1,0,0,0,78,1,1,0,0,0,79,80,3,20,10,0,80,81,5,43,
+		0,0,81,90,5,12,0,0,82,87,3,4,2,0,83,84,5,18,0,0,84,86,3,4,2,0,85,83,1,
+		0,0,0,86,89,1,0,0,0,87,85,1,0,0,0,87,88,1,0,0,0,88,91,1,0,0,0,89,87,1,
+		0,0,0,90,82,1,0,0,0,90,91,1,0,0,0,91,92,1,0,0,0,92,93,5,13,0,0,93,97,5,
+		16,0,0,94,96,3,6,3,0,95,94,1,0,0,0,96,99,1,0,0,0,97,95,1,0,0,0,97,98,1,
+		0,0,0,98,100,1,0,0,0,99,97,1,0,0,0,100,101,5,17,0,0,101,3,1,0,0,0,102,
+		103,3,20,10,0,103,104,5,43,0,0,104,5,1,0,0,0,105,115,3,22,11,0,106,115,
+		3,16,8,0,107,115,3,24,12,0,108,115,3,26,13,0,109,115,3,28,14,0,110,115,
+		3,10,5,0,111,115,3,12,6,0,112,115,3,8,4,0,113,115,3,14,7,0,114,105,1,0,
+		0,0,114,106,1,0,0,0,114,107,1,0,0,0,114,108,1,0,0,0,114,109,1,0,0,0,114,
+		110,1,0,0,0,114,111,1,0,0,0,114,112,1,0,0,0,114,113,1,0,0,0,115,7,1,0,
+		0,0,116,118,5,7,0,0,117,119,3,30,15,0,118,117,1,0,0,0,118,119,1,0,0,0,
+		119,120,1,0,0,0,120,121,5,22,0,0,121,9,1,0,0,0,122,123,5,5,0,0,123,124,
+		5,22,0,0,124,11,1,0,0,0,125,126,5,6,0,0,126,127,5,22,0,0,127,13,1,0,0,
+		0,128,129,5,3,0,0,129,130,3,52,26,0,130,133,3,24,12,0,131,132,5,4,0,0,
+		132,134,3,24,12,0,133,131,1,0,0,0,133,134,1,0,0,0,134,15,1,0,0,0,135,136,
+		3,18,9,0,136,137,5,22,0,0,137,17,1,0,0,0,138,139,3,20,10,0,139,142,5,43,
+		0,0,140,141,5,41,0,0,141,143,3,30,15,0,142,140,1,0,0,0,142,143,1,0,0,0,
+		143,19,1,0,0,0,144,149,7,0,0,0,145,146,5,14,0,0,146,148,5,15,0,0,147,145,
+		1,0,0,0,148,151,1,0,0,0,149,147,1,0,0,0,149,150,1,0,0,0,150,21,1,0,0,0,
+		151,149,1,0,0,0,152,153,3,30,15,0,153,154,5,22,0,0,154,23,1,0,0,0,155,
+		159,5,16,0,0,156,158,3,6,3,0,157,156,1,0,0,0,158,161,1,0,0,0,159,157,1,
+		0,0,0,159,160,1,0,0,0,160,162,1,0,0,0,161,159,1,0,0,0,162,163,5,17,0,0,
+		163,25,1,0,0,0,164,165,5,2,0,0,165,166,3,52,26,0,166,167,3,24,12,0,167,
+		27,1,0,0,0,168,169,5,1,0,0,169,170,5,12,0,0,170,171,3,18,9,0,171,172,5,
+		22,0,0,172,173,3,30,15,0,173,174,5,22,0,0,174,175,3,30,15,0,175,176,5,
+		13,0,0,176,177,3,24,12,0,177,29,1,0,0,0,178,179,3,32,16,0,179,31,1,0,0,
+		0,180,186,3,34,17,0,181,182,5,19,0,0,182,183,3,30,15,0,183,184,5,20,0,
+		0,184,185,3,30,15,0,185,187,1,0,0,0,186,181,1,0,0,0,186,187,1,0,0,0,187,
+		33,1,0,0,0,188,192,3,36,18,0,189,190,3,58,29,0,190,191,3,34,17,0,191,193,
+		1,0,0,0,192,189,1,0,0,0,192,193,1,0,0,0,193,35,1,0,0,0,194,198,3,38,19,
+		0,195,196,3,60,30,0,196,197,3,36,18,0,197,199,1,0,0,0,198,195,1,0,0,0,
+		198,199,1,0,0,0,199,37,1,0,0,0,200,204,3,40,20,0,201,202,3,62,31,0,202,
+		203,3,38,19,0,203,205,1,0,0,0,204,201,1,0,0,0,204,205,1,0,0,0,205,39,1,
+		0,0,0,206,210,3,42,21,0,207,208,3,66,33,0,208,209,3,40,20,0,209,211,1,
+		0,0,0,210,207,1,0,0,0,210,211,1,0,0,0,211,41,1,0,0,0,212,216,3,44,22,0,
+		213,214,3,64,32,0,214,215,3,42,21,0,215,217,1,0,0,0,216,213,1,0,0,0,216,
+		217,1,0,0,0,217,43,1,0,0,0,218,225,3,54,27,0,219,225,3,56,28,0,220,225,
+		3,52,26,0,221,225,3,50,25,0,222,225,3,48,24,0,223,225,3,46,23,0,224,218,
+		1,0,0,0,224,219,1,0,0,0,224,220,1,0,0,0,224,221,1,0,0,0,224,222,1,0,0,
+		0,224,223,1,0,0,0,225,45,1,0,0,0,226,227,5,43,0,0,227,236,5,12,0,0,228,
+		233,3,30,15,0,229,230,5,18,0,0,230,232,3,30,15,0,231,229,1,0,0,0,232,235,
+		1,0,0,0,233,231,1,0,0,0,233,234,1,0,0,0,234,237,1,0,0,0,235,233,1,0,0,
+		0,236,228,1,0,0,0,236,237,1,0,0,0,237,238,1,0,0,0,238,239,5,13,0,0,239,
+		47,1,0,0,0,240,241,5,43,0,0,241,242,5,41,0,0,242,243,3,30,15,0,243,49,
+		1,0,0,0,244,245,5,43,0,0,245,51,1,0,0,0,246,247,5,12,0,0,247,248,3,30,
+		15,0,248,249,5,13,0,0,249,53,1,0,0,0,250,254,3,68,34,0,251,254,3,70,35,
+		0,252,254,3,72,36,0,253,250,1,0,0,0,253,251,1,0,0,0,253,252,1,0,0,0,254,
+		55,1,0,0,0,255,256,7,1,0,0,256,257,3,44,22,0,257,57,1,0,0,0,258,259,7,
+		2,0,0,259,59,1,0,0,0,260,261,7,3,0,0,261,61,1,0,0,0,262,263,7,4,0,0,263,
+		63,1,0,0,0,264,265,7,5,0,0,265,65,1,0,0,0,266,267,7,6,0,0,267,67,1,0,0,
+		0,268,269,5,42,0,0,269,69,1,0,0,0,270,271,5,10,0,0,271,71,1,0,0,0,272,
+		273,5,11,0,0,273,73,1,0,0,0,20,77,87,90,97,114,118,133,142,149,159,186,
+		192,198,204,210,216,224,233,236,253
 	};
 
 	public static readonly ATN _ATN =

@@ -32,9 +32,17 @@ forStatement : FOR LROUNDBRACKET variableDeclarationExpression SEMICOLON express
 
 expression : ternary;
 
-ternary : binary (QUESTIONMARK expression COLON expression)?;
-//need to adjust for order of operations
-binary : primary ( binaryOp binary)?;
+//ternary : binary (QUESTIONMARK expression COLON expression)?;
+//logic > binary > multip > additive
+//binary : primary ( binaryOp binary)?;
+ternary : binaryLogic (QUESTIONMARK expression COLON expression)?;
+
+binaryLogic :binaryCompare (binaryLogicOp binaryLogic)?;
+binaryCompare: binaryBitwise (binaryCompareOp binaryCompare)?;
+binaryBitwise:binaryAdditive (binaryBitwiseOp binaryBitwise)?;
+binaryAdditive: binaryMultiplicative (binaryAdditiveOp binaryAdditive)?;
+binaryMultiplicative: primary (binaryMultiplicativeOp binaryMultiplicative)?;
+
 
 primary : value | unary | grouping | variableAccess | variableAssignment | call;
 
@@ -50,7 +58,13 @@ value:  number | true | false;
 
 unary: (MINUS | EXCLAMATION) primary;
 
-binaryOp: PLUS | MINUS | AND | ANDAND | CARROT | EQUALEQUAL | EXCLAMATIONEQUAL | GREATER | GREATEREQUAL | LESS | LESSEQUAL | OR | OROR | PERCENT | RSLASH | SHIFTLEFT | SHIFTRIGHT | STAR ;
+//binaryOp: PLUS | MINUS | AND | ANDAND | CARROT | EQUALEQUAL | EXCLAMATIONEQUAL | GREATER | GREATEREQUAL | LESS | LESSEQUAL | OR | OROR | PERCENT | RSLASH | SHIFTLEFT | SHIFTRIGHT | STAR ;
+
+binaryLogicOp: ANDAND | OROR;
+binaryCompareOp: EQUALEQUAL | EXCLAMATIONEQUAL | GREATER | GREATEREQUAL | LESS | LESSEQUAL;
+binaryBitwiseOp: AND | CARROT | OR| SHIFTLEFT | SHIFTRIGHT;
+binaryMultiplicativeOp: PERCENT| RSLASH | STAR ;
+binaryAdditiveOp: PLUS | MINUS;
 
 number: NUMBER;
 true: TRUE;

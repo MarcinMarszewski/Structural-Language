@@ -240,17 +240,65 @@ public partial class ParserRulesBaseListener : IParserRulesListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitTernary([NotNull] ParserRulesParser.TernaryContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.binary"/>.
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryLogic"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterBinary([NotNull] ParserRulesParser.BinaryContext context) { }
+	public virtual void EnterBinaryLogic([NotNull] ParserRulesParser.BinaryLogicContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.binary"/>.
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryLogic"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitBinary([NotNull] ParserRulesParser.BinaryContext context) { }
+	public virtual void ExitBinaryLogic([NotNull] ParserRulesParser.BinaryLogicContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryCompare"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBinaryCompare([NotNull] ParserRulesParser.BinaryCompareContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryCompare"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBinaryCompare([NotNull] ParserRulesParser.BinaryCompareContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryBitwise"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBinaryBitwise([NotNull] ParserRulesParser.BinaryBitwiseContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryBitwise"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBinaryBitwise([NotNull] ParserRulesParser.BinaryBitwiseContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryAdditive"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBinaryAdditive([NotNull] ParserRulesParser.BinaryAdditiveContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryAdditive"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBinaryAdditive([NotNull] ParserRulesParser.BinaryAdditiveContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryMultiplicative"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBinaryMultiplicative([NotNull] ParserRulesParser.BinaryMultiplicativeContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryMultiplicative"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBinaryMultiplicative([NotNull] ParserRulesParser.BinaryMultiplicativeContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="ParserRulesParser.primary"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -336,17 +384,65 @@ public partial class ParserRulesBaseListener : IParserRulesListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitUnary([NotNull] ParserRulesParser.UnaryContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryOp"/>.
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryLogicOp"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterBinaryOp([NotNull] ParserRulesParser.BinaryOpContext context) { }
+	public virtual void EnterBinaryLogicOp([NotNull] ParserRulesParser.BinaryLogicOpContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryOp"/>.
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryLogicOp"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitBinaryOp([NotNull] ParserRulesParser.BinaryOpContext context) { }
+	public virtual void ExitBinaryLogicOp([NotNull] ParserRulesParser.BinaryLogicOpContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryCompareOp"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBinaryCompareOp([NotNull] ParserRulesParser.BinaryCompareOpContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryCompareOp"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBinaryCompareOp([NotNull] ParserRulesParser.BinaryCompareOpContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryBitwiseOp"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBinaryBitwiseOp([NotNull] ParserRulesParser.BinaryBitwiseOpContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryBitwiseOp"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBinaryBitwiseOp([NotNull] ParserRulesParser.BinaryBitwiseOpContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryMultiplicativeOp"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBinaryMultiplicativeOp([NotNull] ParserRulesParser.BinaryMultiplicativeOpContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryMultiplicativeOp"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBinaryMultiplicativeOp([NotNull] ParserRulesParser.BinaryMultiplicativeOpContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryAdditiveOp"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBinaryAdditiveOp([NotNull] ParserRulesParser.BinaryAdditiveOpContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryAdditiveOp"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBinaryAdditiveOp([NotNull] ParserRulesParser.BinaryAdditiveOpContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="ParserRulesParser.number"/>.
 	/// <para>The default implementation does nothing.</para>

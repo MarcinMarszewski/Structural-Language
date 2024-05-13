@@ -134,11 +134,35 @@ public interface IParserRulesVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitTernary([NotNull] ParserRulesParser.TernaryContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="ParserRulesParser.binary"/>.
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.binaryLogic"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitBinary([NotNull] ParserRulesParser.BinaryContext context);
+	Result VisitBinaryLogic([NotNull] ParserRulesParser.BinaryLogicContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.binaryCompare"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBinaryCompare([NotNull] ParserRulesParser.BinaryCompareContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.binaryBitwise"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBinaryBitwise([NotNull] ParserRulesParser.BinaryBitwiseContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.binaryAdditive"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBinaryAdditive([NotNull] ParserRulesParser.BinaryAdditiveContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.binaryMultiplicative"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBinaryMultiplicative([NotNull] ParserRulesParser.BinaryMultiplicativeContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="ParserRulesParser.primary"/>.
 	/// </summary>
@@ -182,11 +206,35 @@ public interface IParserRulesVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitUnary([NotNull] ParserRulesParser.UnaryContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="ParserRulesParser.binaryOp"/>.
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.binaryLogicOp"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitBinaryOp([NotNull] ParserRulesParser.BinaryOpContext context);
+	Result VisitBinaryLogicOp([NotNull] ParserRulesParser.BinaryLogicOpContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.binaryCompareOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBinaryCompareOp([NotNull] ParserRulesParser.BinaryCompareOpContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.binaryBitwiseOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBinaryBitwiseOp([NotNull] ParserRulesParser.BinaryBitwiseOpContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.binaryMultiplicativeOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBinaryMultiplicativeOp([NotNull] ParserRulesParser.BinaryMultiplicativeOpContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.binaryAdditiveOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBinaryAdditiveOp([NotNull] ParserRulesParser.BinaryAdditiveOpContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="ParserRulesParser.number"/>.
 	/// </summary>

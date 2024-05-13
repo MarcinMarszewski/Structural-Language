@@ -82,6 +82,7 @@ namespace AntlrCSharp
 		{
 			if (variables.ContainsKey(name)){
 					variables[name] = ConvertType(var, variables[name].type);
+				return;
 			}
 			else if(previous != null) {
 				previous.UpdateVariable(name, var);
@@ -114,6 +115,7 @@ namespace AntlrCSharp
 			if(value.type == convertTo) return value;
 			if(value.type == VariableType.INT && convertTo == VariableType.FLOAT)
 			{
+				value.type = VariableType.FLOAT;
 				value.value = Convert.ToSingle(value.value);
 				return value;
 			}

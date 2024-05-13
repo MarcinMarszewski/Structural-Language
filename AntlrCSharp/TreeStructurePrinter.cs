@@ -40,11 +40,6 @@ namespace AntlrCSharp
             return base.VisitTernary(context);
         }
 
-        public override object VisitBinary([NotNull] BinaryContext context)
-        {
-            Console.Write("BINARY ");
-            return base.VisitBinary(context);
-        }
 
         public override object VisitPrimary([NotNull] PrimaryContext context)
         {
@@ -84,11 +79,6 @@ namespace AntlrCSharp
         {
             Console.Write("FALSE ");
             return base.VisitFalse(context);
-        }
-        public override object VisitBinaryOp([NotNull] BinaryOpContext context)
-        {
-            Console.Write("BINARYOP ");
-            return base.VisitBinaryOp(context);
         }
     }
 }

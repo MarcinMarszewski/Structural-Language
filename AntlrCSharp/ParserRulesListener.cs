@@ -201,15 +201,55 @@ public interface IParserRulesListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitTernary([NotNull] ParserRulesParser.TernaryContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.binary"/>.
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryLogic"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterBinary([NotNull] ParserRulesParser.BinaryContext context);
+	void EnterBinaryLogic([NotNull] ParserRulesParser.BinaryLogicContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.binary"/>.
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryLogic"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitBinary([NotNull] ParserRulesParser.BinaryContext context);
+	void ExitBinaryLogic([NotNull] ParserRulesParser.BinaryLogicContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryCompare"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBinaryCompare([NotNull] ParserRulesParser.BinaryCompareContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryCompare"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBinaryCompare([NotNull] ParserRulesParser.BinaryCompareContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryBitwise"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBinaryBitwise([NotNull] ParserRulesParser.BinaryBitwiseContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryBitwise"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBinaryBitwise([NotNull] ParserRulesParser.BinaryBitwiseContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryAdditive"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBinaryAdditive([NotNull] ParserRulesParser.BinaryAdditiveContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryAdditive"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBinaryAdditive([NotNull] ParserRulesParser.BinaryAdditiveContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryMultiplicative"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBinaryMultiplicative([NotNull] ParserRulesParser.BinaryMultiplicativeContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryMultiplicative"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBinaryMultiplicative([NotNull] ParserRulesParser.BinaryMultiplicativeContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="ParserRulesParser.primary"/>.
 	/// </summary>
@@ -281,15 +321,55 @@ public interface IParserRulesListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitUnary([NotNull] ParserRulesParser.UnaryContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryOp"/>.
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryLogicOp"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterBinaryOp([NotNull] ParserRulesParser.BinaryOpContext context);
+	void EnterBinaryLogicOp([NotNull] ParserRulesParser.BinaryLogicOpContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryOp"/>.
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryLogicOp"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitBinaryOp([NotNull] ParserRulesParser.BinaryOpContext context);
+	void ExitBinaryLogicOp([NotNull] ParserRulesParser.BinaryLogicOpContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryCompareOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBinaryCompareOp([NotNull] ParserRulesParser.BinaryCompareOpContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryCompareOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBinaryCompareOp([NotNull] ParserRulesParser.BinaryCompareOpContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryBitwiseOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBinaryBitwiseOp([NotNull] ParserRulesParser.BinaryBitwiseOpContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryBitwiseOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBinaryBitwiseOp([NotNull] ParserRulesParser.BinaryBitwiseOpContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryMultiplicativeOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBinaryMultiplicativeOp([NotNull] ParserRulesParser.BinaryMultiplicativeOpContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryMultiplicativeOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBinaryMultiplicativeOp([NotNull] ParserRulesParser.BinaryMultiplicativeOpContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.binaryAdditiveOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBinaryAdditiveOp([NotNull] ParserRulesParser.BinaryAdditiveOpContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.binaryAdditiveOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBinaryAdditiveOp([NotNull] ParserRulesParser.BinaryAdditiveOpContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="ParserRulesParser.number"/>.
 	/// </summary>
