@@ -86,6 +86,7 @@ namespace AntlrCSharp
 			}
 			else if(previous != null) {
 				previous.UpdateVariable(name, var);
+				return;
 			}
 			throw new LanguageError($"Cannot assign to not existant variable {name}.");
 		}

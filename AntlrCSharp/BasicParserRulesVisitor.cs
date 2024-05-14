@@ -219,7 +219,6 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
 		throw new LanguageError($"Unexpected operand {operand}.");
 	}
 
-
 	public override Variable VisitBinaryCompare([NotNull] BinaryCompareContext context)
 	{
 		Variable leftVal = VisitBinaryBitwise(context.binaryBitwise());
@@ -311,6 +310,22 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
         if (!(leftVal.type == VariableType.FLOAT || leftVal.type == VariableType.INT)
             || !(rightVal.type == VariableType.FLOAT || rightVal.type == VariableType.INT))
             throw new Exception("Cannot use numeric binary operators for non-numeric values");
+
+		if(leftVal.type == VariableType.INT && rightVal.type == VariableType.INT)
+		{
+            int vali1 = Convert.ToInt32(leftVal.value);
+            int vali2 = Convert.ToInt32(rightVal.value);
+            switch (operand[0])
+            {
+                case '%':
+                    return new Variable(VariableType.INT, vali1 % vali2);
+                case '/':
+                    return new Variable(VariableType.INT, vali1 / vali2);
+                case '*':
+                    return new Variable(VariableType.INT, vali1 * vali2);
+            }
+            throw new LanguageError($"Unexpected operand {operand}.");
+        }
         float val1 = Convert.ToSingle(leftVal.value);
         float val2 = Convert.ToSingle(rightVal.value);
 
@@ -343,6 +358,22 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
         if (!(leftVal.type == VariableType.FLOAT || leftVal.type == VariableType.INT)
             || !(rightVal.type == VariableType.FLOAT || rightVal.type == VariableType.INT))
             throw new Exception("Cannot use numeric binary operators for non-numeric values");
+
+		if (leftVal.type == VariableType.INT && rightVal.type == VariableType.INT)
+		{
+			int vali1 = Convert.ToInt32(leftVal.value);
+			int vali2 = Convert.ToInt32(rightVal.value);
+
+            switch (operand[0])
+            {
+                case '+':
+                    return new Variable(VariableType.INT, vali1 + vali2);
+                case '-':
+                    return new Variable(VariableType.INT, vali1 - vali2);
+            }
+            throw new LanguageError($"Unexpected operand {operand}.");
+        }
+
         float val1 = Convert.ToSingle(leftVal.value);
         float val2 = Convert.ToSingle(rightVal.value);
 
