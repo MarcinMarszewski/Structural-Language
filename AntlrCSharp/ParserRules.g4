@@ -16,10 +16,10 @@ continueStatement: CONTINUE SEMICOLON;
 
 ifStatement: IF grouping blockStatement (ELSE blockStatement)?;
 
-variableDeclaration: variableDeclarationExpression SEMICOLON;
+variableDeclaration: variableDeclarationExpression SEMICOLON;   ////TODO: can be removed
 variableDeclarationExpression: type IDENTIFIER (EQUAL expression)?;
 
-type: (INT | FLOAT) (LSQUAREBRACKET RSQUAREBRACKET)* ;
+type: (INT | FLOAT)  (LSQUAREBRACKET RSQUAREBRACKET)?  ;
 
 expressionStatement: expression SEMICOLON;
 
@@ -27,14 +27,11 @@ blockStatement: LCURLYBRACKET (statement)* RCURLYBRACKET;
 
 whileStatement: WHILE grouping blockStatement;
 
-forStatement : FOR LROUNDBRACKET variableDeclarationExpression SEMICOLON expression SEMICOLON expression RROUNDBRACKET blockStatement;
+forStatement : FOR LROUNDBRACKET variableDeclarationExpression SEMICOLON expression SEMICOLON expression RROUNDBRACKET blockStatement;///TODO: make for expressions optional
 
 
-expression : ternary;
+expression : ternary; ///TODO: can be removed
 
-//ternary : binary (QUESTIONMARK expression COLON expression)?;
-//logic > binary > multip > additive
-//binary : primary ( binaryOp binary)?;
 ternary : binaryLogic (QUESTIONMARK expression COLON expression)?;
 
 binaryLogic :binaryCompare (binaryLogicOp binaryLogic)?;
@@ -44,7 +41,14 @@ binaryAdditive: binaryMultiplicative (binaryAdditiveOp binaryAdditive)?;
 binaryMultiplicative: primary (binaryMultiplicativeOp binaryMultiplicative)?;
 
 
-primary : value | unary | grouping | variableAccess | variableAssignment | call;
+primary : createArray | value | unary | grouping | variableAccess | variableAssignment | call | arrayAssignment  | arrayAccess ;
+
+createArray: (INT | FLOAT) LSQUAREBRACKET expression RSQUAREBRACKET ;
+
+//tu powinien być expression zamiast identifier zeby potem robic func()[0]
+arrayAssignment: (variableAccess | call | grouping) LSQUAREBRACKET expression RSQUAREBRACKET EQUAL expression ;
+//tutaj teeeeez x.x
+arrayAccess: (variableAccess | call | grouping) LSQUAREBRACKET expression RSQUAREBRACKET ; 
 
 call: IDENTIFIER LROUNDBRACKET (expression (COMMA expression)* )? RROUNDBRACKET;
 
@@ -57,8 +61,6 @@ grouping : LROUNDBRACKET expression RROUNDBRACKET;
 value:  number | true | false;
 
 unary: (MINUS | EXCLAMATION) primary;
-
-//binaryOp: PLUS | MINUS | AND | ANDAND | CARROT | EQUALEQUAL | EXCLAMATIONEQUAL | GREATER | GREATEREQUAL | LESS | LESSEQUAL | OR | OROR | PERCENT | RSLASH | SHIFTLEFT | SHIFTRIGHT | STAR ;
 
 binaryLogicOp: ANDAND | OROR;
 binaryCompareOp: EQUALEQUAL | EXCLAMATIONEQUAL | GREATER | GREATEREQUAL | LESS | LESSEQUAL;

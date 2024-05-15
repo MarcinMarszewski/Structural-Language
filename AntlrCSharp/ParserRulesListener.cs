@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from c://Users//marci//Desktop//Structural Language//AntlrCSharp//ParserRules.g4 by ANTLR 4.13.1
+// Generated from c://Users//marci//Desktop//Structural-Language//AntlrCSharp//ParserRules.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -260,6 +260,36 @@ public interface IParserRulesListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitPrimary([NotNull] ParserRulesParser.PrimaryContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.createArray"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCreateArray([NotNull] ParserRulesParser.CreateArrayContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.createArray"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCreateArray([NotNull] ParserRulesParser.CreateArrayContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.arrayAssignment"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterArrayAssignment([NotNull] ParserRulesParser.ArrayAssignmentContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.arrayAssignment"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitArrayAssignment([NotNull] ParserRulesParser.ArrayAssignmentContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="ParserRulesParser.arrayAccess"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterArrayAccess([NotNull] ParserRulesParser.ArrayAccessContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ParserRulesParser.arrayAccess"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitArrayAccess([NotNull] ParserRulesParser.ArrayAccessContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="ParserRulesParser.call"/>.
 	/// </summary>

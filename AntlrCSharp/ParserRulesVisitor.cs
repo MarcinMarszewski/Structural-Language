@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from c://Users//marci//Desktop//Structural Language//AntlrCSharp//ParserRules.g4 by ANTLR 4.13.1
+// Generated from c://Users//marci//Desktop//Structural-Language//AntlrCSharp//ParserRules.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -169,6 +169,24 @@ public interface IParserRulesVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitPrimary([NotNull] ParserRulesParser.PrimaryContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.createArray"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitCreateArray([NotNull] ParserRulesParser.CreateArrayContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.arrayAssignment"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitArrayAssignment([NotNull] ParserRulesParser.ArrayAssignmentContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="ParserRulesParser.arrayAccess"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitArrayAccess([NotNull] ParserRulesParser.ArrayAccessContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="ParserRulesParser.call"/>.
 	/// </summary>

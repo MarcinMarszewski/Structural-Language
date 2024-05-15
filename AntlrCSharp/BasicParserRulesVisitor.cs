@@ -65,12 +65,25 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
 	public override Variable VisitType([NotNull] TypeContext context)
 	{
 		VariableType type = VariableType.NULL;
-		switch (context.GetText())
+		if(context.ChildCount > 1)
 		{
-			case "int":
+            switch (context.GetText()[0])
+            {
+                case 'i':
+                    type = VariableType.INT_ARR;
+                    break;
+                case 'f':
+                    type = VariableType.FLOAT_ARR;
+                    break;
+            }
+        }
+		else
+		switch (context.GetText()[0])
+		{
+			case 'i':
 				type = VariableType.INT;
 				break;
-			case "float":
+			case 'f':
 				type = VariableType.FLOAT;
 				break;
 		}
@@ -398,7 +411,53 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
 		return Visit(context.expression());
 	}
 
-	public override Variable VisitVariableAssignment([NotNull] VariableAssignmentContext context)
+    public override Variable VisitCreateArray([NotNull] CreateArrayContext context)
+    {
+		int length = (int)VariableEnvironment.ConvertType(VisitExpression(context.expression()), VariableType.INT).value;
+		switch (context.children[0].GetText()[0])
+		{
+			case 'f':
+				return new Variable(VariableType.FLOAT_ARR, new float[length]);
+			case 'i':
+                return new Variable(VariableType.INT_ARR, new int[length]);
+        }
+		throw new LanguageError($"Unrecognized type reached while creating an array: {context.children[0].GetText()[0]}.");
+    }
+
+    public override Variable VisitArrayAssignment([NotNull] ArrayAssignmentContext context)
+    {
+		Variable arr = Visit(context.children[0]);
+		int position = (int)VariableEnvironment.ConvertType(VisitExpression(context.expression(0)), VariableType.INT).value;
+		Variable value = VisitExpression(context.expression(1));
+		switch (arr.type)
+		{
+			case VariableType.INT_ARR:
+				((int[])arr.value)[position] = (int)VariableEnvironment.ConvertType(value, VariableType.INT).value;
+				break;
+			case VariableType.FLOAT_ARR:
+                ((float[])arr.value)[position] = (float)VariableEnvironment.ConvertType(value, VariableType.FLOAT).value;
+				break;
+			default:
+				throw new LanguageError($"Cannot assign {value.type} to {arr.type}.");
+        }
+		return value;
+    }
+
+    public override Variable VisitArrayAccess([NotNull] ArrayAccessContext context)
+    {
+        int position = (int)VariableEnvironment.ConvertType(VisitExpression(context.expression()), VariableType.INT).value;
+		Variable arr = Visit(context.children[0]);
+		switch (arr.type)
+		{
+			case VariableType.INT_ARR:
+				return new Variable(VariableType.INT, ((int[])arr.value)[position]);
+			case VariableType.FLOAT_ARR:
+                return new Variable(VariableType.FLOAT, ((float[])arr.value)[position]);
+        }
+		throw new LanguageError($"Cannot access array field in type: {arr.type}.");
+    }
+
+    public override Variable VisitVariableAssignment([NotNull] VariableAssignmentContext context)
 	{
 		Variable val = VisitExpression(context.expression());
 		string id = context.IDENTIFIER().GetText();
@@ -459,7 +518,6 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
 		return new Variable(VariableType.INT, 0);
 	}
 
-	//make it use variable instead
 	private bool isTrue(Variable obj)
 	{
 		if (obj.type == VariableType.INT) return (int)obj.value !=0;
@@ -467,98 +525,6 @@ public class BasicParserRulesVisitor : ParserRulesBaseVisitor<Variable>
 		return false;
 	}
 
-	//implement order of operations, better type converting, null values
-	/*private object binaryCalculate(Variable v1, Variable v2, string op, out VariableType resultType)
-	{
-		if (!(v1.type == VariableType.FLOAT || v1.type == VariableType.INT) 
-			|| !(v2.type  == VariableType.FLOAT || v2.type == VariableType.INT))
-			throw new Exception("Cannot use numeric binary operators for non-numeric values");
-
-		if (v1.type == VariableType.FLOAT || v2.type == VariableType.FLOAT)
-		{
-			float val1 = Convert.ToSingle(v1.value);
-			float val2 = Convert.ToSingle(v2.value);
-			resultType = VariableType.FLOAT;
-
-			switch (op[0])
-			{
-				case '+':
-					return val1 + val2;
-				case '-':
-					return val1 - val2;
-				case '*':
-					return val1 * val2;
-				case '/':
-					return val1 / val2;
-				case '%':
-					return val1 % val2;
-				case '<':
-					if (op[1] == '=') return val1 <= val2?1:0;
-					if (op[1] == '<') throw new Exception("No binary operation found for operator: " + op);
-					return val1 < val2?1:0;
-				case '>':
-					if (op[1] == '=') return val1 >= val2 ? 1 : 0;
-					if (op[1] == '>') throw new Exception("No binary operation found for operator: " + op);
-					return val1 > val2 ? 1 : 0;
-				case '!':
-					return val1 != val2 ? 1 : 0;
-				case '=':
-					return val1 == val2 ? 1 : 0;
-				case '&':
-					if (op[1] == '&') return isTrue(val1) && isTrue(val2) ? 1 : 0;
-					throw new Exception("No binary operation found for operator: " + op);
-				case '|':
-					if (op[1] == '|') return isTrue(val1) || isTrue(val2) ? 1 : 0;
-					throw new Exception("No binary operation found for operator: " + op);
-				case '^':
-				default:
-					throw new Exception("No binary operation found for operator: " + op);
-			}
-		}
-		else
-		{
-			int val1 = Convert.ToInt32(v1.value);
-			int val2 = Convert.ToInt32(v2.value);
-			resultType = VariableType.INT;
-
-			switch (op[0])
-			{
-				case '+':
-					return val1 + val2;
-				case '-':
-					return val1 - val2;
-				case '*':
-					return val1 * val2;
-				case '/':
-					return val1 / val2;
-				case '%':
-					return val1 % val2;
-				case '<':
-					if (op[1] == '=') return val1 <= val2 ? 1 : 0;
-					if (op[1] == '<') return val1 << val2;
-					return val1 < val2 ? 1 : 0;
-				case '>':
-					if (op[1] == '=') return val1 >= val2 ? 1 : 0;
-					if (op[1] == '>') return val1 >> val2;
-					return val1 > val2 ? 1 : 0;
-				case '!':
-					return val1 != val2 ? 1 : 0;
-				case '=':
-					return val1 == val2 ? 1 : 0;
-				case '&':
-					if (op[1] == '&') return isTrue(val1) && isTrue(val2) ? 1 : 0;
-					return val1 & val2;
-				case '|':
-					if (op[1] == '|') return isTrue(val1) || isTrue(val2) ? 1 : 0;
-					return val1 | val2;
-				case '^':
-					return val1 ^ val2;
-				default:
-					throw new Exception("No binary operation found for operator: " + op);
-			}
-		}
-	}
-	*/
 	private void UpScope()
 	{
 		variableEnvironment = new VariableEnvironment(variableEnvironment);

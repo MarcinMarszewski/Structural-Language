@@ -10,8 +10,8 @@ namespace AntlrCSharp
 	{
 		INT,
 		FLOAT,
-		CONTAINER,
-		EVENT,
+		INT_ARR,
+		FLOAT_ARR,
 		NULL,
 		CONTINUE_HNDL,
 		BREAK_HNDL,
@@ -39,8 +39,6 @@ namespace AntlrCSharp
 					return typeof(float);
                 case VariableType.NULL:
 					return null;
-                case VariableType.CONTAINER:
-				case VariableType.EVENT:
 					
 				default:
 					throw new LanguageError($"Cannot convert Variable Type: {t}");
