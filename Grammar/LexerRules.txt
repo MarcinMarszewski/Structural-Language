@@ -1,64 +1,58 @@
 lexer grammar LexerRules;
 
-BINARYMATH : MINUS | PLUS | STAR | RSLASH; 
-BINARYBITWISE : AND | OR |CARROT | SHIFTRIGHT | SHIFTLEFT;
-BINARYLOGIC : ANDAND  | OROR | EQUALEQUAL | EXCLAMATIONEQUAL | LESSEQUAL | GREATEREQUAL | LESS | GREATER;
-TYPE : INT | FLOAT | SHORT | CHAR | LONG | DECIMAL;
+FOR: 'for';
+WHILE: 'while';
+IF: 'if';
+ELSE: 'else';
 
+BREAK: 'break';
+CONTINUE: 'continue';
+RETURN: 'return';
 
-MINUS : '-';
-PLUS : '+';
-STAR : '*';
-RSLASH : '/';
-EXCLAMATION : '!';
-AND : '&';
-OR : '|';
-CARROT : '^';
-SHIFTLEFT : '<<';
-SHIFTRIGHT : '>>';
-ANDAND : '&&';
-OROR : '||';
-EQUALEQUAL : '==';
-EXCLAMATIONEQUAL : '!=';
-LESSEQUAL : '<=';
-GREATEREQUAL : '>=';
-LESS : '<';
-GREATER : '>';
-INT : 'int';
-FLOAT : 'float';
-SHORT : 'short';
-CHAR : 'char';
-LONG : 'long';
-DECIMAL : 'decimal';
+INT: 'int';
+FLOAT: 'float';
 
 TRUE: 'true';
 FALSE: 'false';
 
-IF : 'if';
-ELSE : 'else';
-FOR : 'for';
-LCURLYBRACKET : '{';
-RCURLYBRACKET : '}';
-LSQUAREBRACKET : '[';
-RSQUAREBRACKET : ']';
-SEMICOLON : ';';
-ENUM : 'enum';
-STRUCT : 'struct';
+LROUNDBRACKET: '(';
+RROUNDBRACKET: ')';
+LSQUAREBRACKET: '[';
+RSQUAREBRACKET: ']';
+LCURLYBRACKET: '{';
+RCURLYBRACKET: '}';
+
+COMMA: ',';
+
+QUESTIONMARK: '?';
+COLON: ':';
+EXCLAMATION : '!';
+SEMICOLON: ';';
+
+PLUS: '+';
+MINUS: '-';
+RSLASH: '/';
+STAR: '*';
+
+AND : '&';
+OR : '|';
+CARROT : '^';
+PERCENT : '%';
+
+SHIFTLEFT : '<<';
+SHIFTRIGHT : '>>';
+ANDAND : '&&';
+OROR : '||';
+
+EQUALEQUAL : '==';
+EXCLAMATIONEQUAL : '!=';
+
+LESSEQUAL : '<=';
+GREATEREQUAL : '>=';
+LESS : '<';
+GREATER : '>';
+
 EQUAL : '=';
-COMMA : ',';
-DOT : '.';
-LPARENTHESIS : '(';
-RPARENTHESIS : ')';
-WHILE : 'while';
-DO : 'do';
-SWITCH : 'switch';
-DEFAULT : 'default';
-CASE : 'case';
-CONTINUE : 'continue';
-BREAK : 'break';
-COLON : ':';
-QUESTIONMARK : '?';
-RETURN : 'return';
 
 NUMBER : DIGIT+ ('.' DIGIT+)?;
 fragment DIGIT : '0'..'9';

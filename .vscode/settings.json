@@ -3,5 +3,11 @@
         
         "visualParseTreeHorizontal": true,
         "visualParseTreeClustered": false
+    },
+    "antlr4.generation": {
+
+        "mode": "internal",
+        "listeners": false,
+        "visitors": true
     }
 }

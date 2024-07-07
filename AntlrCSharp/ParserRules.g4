@@ -2,7 +2,6 @@ grammar ParserRules;
 
 import LexerRules;
 
-//topmost list of rules, subject to change
 program: function+;
 
 function: type IDENTIFIER LROUNDBRACKET (parameter (COMMA parameter)* )? RROUNDBRACKET    LCURLYBRACKET statement* RCURLYBRACKET;
@@ -16,7 +15,7 @@ continueStatement: CONTINUE SEMICOLON;
 
 ifStatement: IF grouping blockStatement (ELSE blockStatement)?;
 
-variableDeclaration: variableDeclarationExpression SEMICOLON;   ////TODO: can be removed
+variableDeclaration: variableDeclarationExpression SEMICOLON;
 variableDeclarationExpression: type IDENTIFIER (EQUAL expression)?;
 
 type: (INT | FLOAT)  (LSQUAREBRACKET RSQUAREBRACKET)?  ;
@@ -30,7 +29,7 @@ whileStatement: WHILE grouping blockStatement;
 forStatement : FOR LROUNDBRACKET variableDeclarationExpression SEMICOLON expression SEMICOLON expression RROUNDBRACKET blockStatement;///TODO: make for expressions optional
 
 
-expression : ternary; ///TODO: can be removed
+expression : ternary;
 
 ternary : binaryLogic (QUESTIONMARK expression COLON expression)?;
 
@@ -45,9 +44,7 @@ primary : createArray | value | unary | grouping | variableAccess | variableAssi
 
 createArray: (INT | FLOAT) LSQUAREBRACKET expression RSQUAREBRACKET ;
 
-//tu powinien być expression zamiast identifier zeby potem robic func()[0]
 arrayAssignment: (variableAccess | call | grouping) LSQUAREBRACKET expression RSQUAREBRACKET EQUAL expression ;
-//tutaj teeeeez x.x
 arrayAccess: (variableAccess | call | grouping) LSQUAREBRACKET expression RSQUAREBRACKET ; 
 
 call: IDENTIFIER LROUNDBRACKET (expression (COMMA expression)* )? RROUNDBRACKET;

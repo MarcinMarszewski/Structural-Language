@@ -2,56 +2,71 @@ grammar ParserRules;
 
 import LexerRules;
 
-options {
-    
-}
+program: function+;
 
-program : (definition )+ ;
+function: type IDENTIFIER LROUNDBRACKET (parameter (COMMA parameter)* )? RROUNDBRACKET    LCURLYBRACKET statement* RCURLYBRACKET;
+parameter: type IDENTIFIER;
 
+statement: expressionStatement | variableDeclaration | blockStatement | whileStatement | forStatement | breakStatement | continueStatement | returnStatement | ifStatement;
+ 
+returnStatement: RETURN expression? SEMICOLON;
+breakStatement: BREAK SEMICOLON;
+continueStatement: CONTINUE SEMICOLON;
 
-definition : structDefinition | enumerableDefinition | variableDeclaration | function | arrayDeclaration ;
-structDefinition : STRUCT identifier  LCURLYBRACKET  ((TYPE | identifier) ( LSQUAREBRACKET RSQUAREBRACKET)? identifier  SEMICOLON )+ RCURLYBRACKET;
-enumerableDefinition : ENUM identifier  LCURLYBRACKET  identifier  (EQUAL  NUMBER)?  (COMMA  identifier  (EQUAL  NUMBER )? )*  COMMA?  RCURLYBRACKET;
-function : (TYPE | identifier) identifier  LPARENTHESIS  ((TYPE | identifier) identifier  (COMMA  (TYPE | identifier) identifier  )*)?  RPARENTHESIS  LCURLYBRACKET  (statement )* RCURLYBRACKET;
-variableDeclaration : (TYPE | identifier) (identifier | assignment)  (COMMA  (identifier | assignment)  )*  SEMICOLON;
-arrayDeclaration : (TYPE | identifier)  LSQUAREBRACKET  RSQUAREBRACKET (identifier | arrayAssignment)  (COMMA  (identifier | arrayAssignment) )*  SEMICOLON;
-arrayAssignment : identifier  EQUAL  ( (LSQUAREBRACKET  expression  RSQUAREBRACKET) | (LCURLYBRACKET expression (COMMA expression)* COMMA? RCURLYBRACKET) );
+ifStatement: IF grouping blockStatement (ELSE blockStatement)?;
 
+variableDeclaration: variableDeclarationExpression SEMICOLON;
+variableDeclarationExpression: type IDENTIFIER (EQUAL expression)?;
 
-statement : switchStatement | variableDeclaration | arrayDeclaration | expressionStatement | whileStatement | block | forStatement | doWhileStatement | returnStatement | breakStatement | continueStatement;
+type: (INT | FLOAT)  (LSQUAREBRACKET RSQUAREBRACKET)?  ;
 
-block : LCURLYBRACKET  (statement )* RCURLYBRACKET;
-expressionStatement : expression  SEMICOLON;
-whileStatement : WHILE  LPARENTHESIS  expression RPARENTHESIS  statement;
-forStatement : FOR  LPARENTHESIS  (variableDeclaration | SEMICOLON)  expression?  SEMICOLON  expression?  RPARENTHESIS  statement;
-doWhileStatement : DO  statement  WHILE  LPARENTHESIS  expression  RPARENTHESIS SEMICOLON ;
-ifStatement : IF LPARENTHESIS expression RPARENTHESIS statement (ELSE statement)?;
-switchStatement : SWITCH  LPARENTHESIS  expression  RPARENTHESIS  LCURLYBRACKET  case_  ((case_ | statement)  )*  (DEFAULT  COLON  (statement  )*)?  RCURLYBRACKET;
-case_ : CASE expression  COLON;
-returnStatement : RETURN expression  SEMICOLON;
-breakStatement : BREAK  SEMICOLON;
-continueStatement : CONTINUE  SEMICOLON;
+expressionStatement: expression SEMICOLON;
+
+blockStatement: LCURLYBRACKET (statement)* RCURLYBRACKET;
+
+whileStatement: WHILE grouping blockStatement;
+
+forStatement : FOR LROUNDBRACKET variableDeclarationExpression SEMICOLON expression SEMICOLON expression RROUNDBRACKET blockStatement;///TODO: make for expressions optional
+
 
 expression : ternary;
 
-ternary : binary (QUESTIONMARK expression COLON expression)?;
+ternary : binaryLogic (QUESTIONMARK expression COLON expression)?;
 
-binary : primary ( binaryOp primary)?;
-binaryOp : BINARYMATH | BINARYBITWISE | BINARYLOGIC;
+binaryLogic :binaryCompare (binaryLogicOp binaryLogic)?;
+binaryCompare: binaryBitwise (binaryCompareOp binaryCompare)?;
+binaryBitwise:binaryAdditive (binaryBitwiseOp binaryBitwise)?;
+binaryAdditive: binaryMultiplicative (binaryAdditiveOp binaryAdditive)?;
+binaryMultiplicative: primary (binaryMultiplicativeOp binaryMultiplicative)?;
 
-primary : variableAccess | number | call | grouping | unary | assignment | arrayAccess | fieldAccess | typeCast | true | false | arrayAssignment;
-variableAccess: IDENTIFIER;
+
+primary : createArray | value | unary | grouping | variableAccess | variableAssignment | call | arrayAssignment  | arrayAccess ;
+
+createArray: (INT | FLOAT) LSQUAREBRACKET expression RSQUAREBRACKET ;
+
+
+arrayAssignment: (variableAccess | call | grouping) LSQUAREBRACKET expression RSQUAREBRACKET EQUAL expression ;
+
+arrayAccess: (variableAccess | call | grouping) LSQUAREBRACKET expression RSQUAREBRACKET ; 
+
+call: IDENTIFIER LROUNDBRACKET (expression (COMMA expression)* )? RROUNDBRACKET;
+
+variableAssignment: IDENTIFIER EQUAL expression;
+
+variableAccess : IDENTIFIER;
+
+grouping : LROUNDBRACKET expression RROUNDBRACKET;
+
+value:  number | true | false;
+
+unary: (MINUS | EXCLAMATION) primary;
+
+binaryLogicOp: ANDAND | OROR;
+binaryCompareOp: EQUALEQUAL | EXCLAMATIONEQUAL | GREATER | GREATEREQUAL | LESS | LESSEQUAL;
+binaryBitwiseOp: AND | CARROT | OR| SHIFTLEFT | SHIFTRIGHT;
+binaryMultiplicativeOp: PERCENT| RSLASH | STAR ;
+binaryAdditiveOp: PLUS | MINUS;
+
 number: NUMBER;
 true: TRUE;
 false: FALSE;
-
-
-unary : unaryOp expression;
-unaryOp: MINUS | EXCLAMATION;
-grouping : LPARENTHESIS  expression  RPARENTHESIS;
-
-arrayAccess : identifier LSQUAREBRACKET  expression  RSQUAREBRACKET;
-call : identifier LPARENTHESIS (expression  (COMMA  expression )* )? RPARENTHESIS;
-typeCast : LPARENTHESIS  (TYPE | identifier)  RPARENTHESIS  expression;
-assignment : identifier  (BINARYMATH | BINARYBITWISE)? EQUAL expression;
-fieldAccess : identifier DOT identifier;

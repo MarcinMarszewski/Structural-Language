@@ -1,8 +1,16 @@
-# A project of interpreter for simple structural language (to be named)
+# A project of interpreter for simple structural language - BadScript
 
-## TODO:
-- Converting antlr generated data structures to ones more suitable and simpler ones
-- Make user friendly language description
-- Write grammar tests
+Language currently supports:\
+-int, float as well as int and int, float array types\
+-functions\
+-block, while, for, if else statements with required curly brackets\
+-return, break and continue statements\
+-expression statements (statements without side effects are printed to console)\
+-binary operations with precedence hierarchy\
+-ternary operator
 
-Ive decided that for that at least for now language wont support quotation strings.
+Programs starts interpreting from function named 'main'.
+
+Exact language rules can be found in Grammar folder.
+
+There's even an executable in the Release folder.

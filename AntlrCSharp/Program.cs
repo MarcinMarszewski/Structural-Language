@@ -2,32 +2,37 @@
 using Antlr4.Runtime;
 using AntlrCSharp;
 
-while (true)
-try
+namespace AntlrCSharp
 {
-	string input = "";
-	StringBuilder text = new StringBuilder();
-	Console.WriteLine("Input the program:");
-
-	while((input = Console.ReadLine()) != "u4")
+	class Program
 	{
-		text.AppendLine(input);
-	}
+		static void Main(string[] args)
+		    {
+                if (args.Length < 1)
+                    Console.WriteLine($"Usage: AntlrCSharp <code_file>");
+                else
+                try
+                {
+                        string path = Path.GetFullPath(args[0]);
+                        string code = File.ReadAllText(path);
 
-	AntlrInputStream antlrInputStream = new AntlrInputStream(text.ToString());
+                        AntlrInputStream antlrInputStream = new AntlrInputStream(code);
 
-	ParserRulesLexer lexer = new ParserRulesLexer( antlrInputStream );
-	CommonTokenStream commonTokenStream = new CommonTokenStream( lexer );
+                        ParserRulesLexer lexer = new ParserRulesLexer(antlrInputStream);
+                        CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
 
-	ParserRulesParser parser = new ParserRulesParser( commonTokenStream );
-	ParserRulesParser.ProgramContext programContext = parser.program();
+                        ParserRulesParser parser = new ParserRulesParser(commonTokenStream);
+                        ParserRulesParser.ProgramContext programContext = parser.program();
 
 
-	BasicParserRulesVisitor visitor = new BasicParserRulesVisitor();
-	BasicParserRulesVisitor.ClearFunctions();
-	visitor.Visit(programContext);
-}
-catch (Exception ex)
-{
-	Console.WriteLine (ex.Message);
+                        BasicParserRulesVisitor visitor = new BasicParserRulesVisitor();
+                        BasicParserRulesVisitor.ClearFunctions();
+                        visitor.Visit(programContext);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+        }
+	} 
 }
